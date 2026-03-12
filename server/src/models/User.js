@@ -1,5 +1,4 @@
-import { Schema, Types } from "mongoose";
-import Anime from "./Anime.js";
+import { model, Schema, Types } from "mongoose";
 
 const userSchema = new Schema({
     email: {
@@ -31,7 +30,7 @@ const userSchema = new Schema({
         {
             animeId: {
                 type: Types.ObjectId,
-                ref: Anime
+                ref: 'Anime'
             },
             status: {
                 type: String,
@@ -41,3 +40,7 @@ const userSchema = new Schema({
         }
     ]
 })
+
+const User = model('User', userSchema);
+
+export default User;
