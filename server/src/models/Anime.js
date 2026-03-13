@@ -40,13 +40,16 @@ const animeSchema = new Schema({
         match: [/^https?:\/\//, "ImageURL is invalid"]
     },
     currentlyWathced: {
-        type: Number
+        type: Number,
+        default: 0
     },
     completed: {
-        type: Number
+        type: Number,
+        default: 0
     },
     dropped: {
-        type: Number
+        type: Number,
+        default: 0
     },
     ownerId: {
         type: Types.ObjectId
