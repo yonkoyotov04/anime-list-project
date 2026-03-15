@@ -13,6 +13,7 @@ export default function authMiddleware(req, res, next) {
 
         req.user = decodedToken;
         req.isAuthenticated = true;
+        req.isAdmin = user.email === 'jjotov488@gmail.com' ? true : false;
 
         next()
     } catch (error) {

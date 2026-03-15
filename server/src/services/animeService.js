@@ -19,6 +19,8 @@ export default {
         if (filter.genres) {
             query.find({ genres: { $regex: filter.genres, $options: 'i' } })
         }
+
+        return query;
     },
 
     getOneAnime(animeId) {
