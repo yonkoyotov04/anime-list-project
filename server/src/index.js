@@ -5,19 +5,19 @@ import cookieParser from 'cookie-parser'
 import 'dotenv/config'
 import routes from './routes.js'
 
-const app = express()
+const app = express();
 
 try {
-    await mongoose.connect(process.env.MONGO_URI, {dbName: 'anime-list-project'})
-    console.log("Succesfully connected to database!") 
+    await mongoose.connect(process.env.MONGO_URI, {dbName: 'anime-list-project'});
+    console.log("Succesfully connected to database!") ;
 } catch (error) {
     console.log("Failed to connect to database", error.message);
 }
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
-app.use(routes)
+app.use(routes);
 
-app.listen(1298, () => console.log('Server is listening on port http://localhost:1298......'))
+app.listen(1298, () => console.log('Server is listening on port http://localhost:1298......'));
