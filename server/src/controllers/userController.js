@@ -94,7 +94,7 @@ userController.put('/:userId', isAuth, async (req, res) => {
 
     try {
         await userService.editProfile(userId, newData);
-        res.json({});
+        res.status(201).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();
@@ -111,6 +111,7 @@ userController.put('/:userId/password', isAuth, async (req, res) => {
 
     try {
         await userService.editPassword(userId, currentPassword, newPassword, repeatNewPassword)
+        res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();
@@ -123,9 +124,11 @@ userController.delete('/:userId', isAuth, async (req, res) => {
     try {
         await reviewService.deleteReviewsForUser(userId);
         await userService.deleteProfile(userId);
+
+        res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        res.sendStatus(200);
     }
 })
 

@@ -10,7 +10,7 @@ animeController.get('/', async (req, res) => {
     const filter = req.query;
     const animes = await animeService.getAllAnime(filter);
 
-    res.json(animes ?? []);
+    res.status(200).json(animes ?? []);
 })
 
 animeController.post('/', isAuth, async (req, res) => {
@@ -28,7 +28,7 @@ animeController.post('/', isAuth, async (req, res) => {
 
     try {
         const anime = await animeService.createAnime(animeData, userId);
-        res.json(anime ?? {});
+        res.status(200).json(anime ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();
@@ -40,7 +40,7 @@ animeController.get('/:animeId', async (req, res) => {
 
     try {
         const anime = await animeService.getOneAnime(animeId);
-        res.json(anime ?? {});
+        res.status(200).json(anime ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(404).end();
@@ -56,7 +56,7 @@ animeController.get('/:animeId/status', isAuth, async (req, res) => {
         isOwner = false;
     }
 
-    return res.json(isOwner);
+    return res.status(200).json(isOwner);
 })
 
 animeController.put('/:animeId', isAuth, async (req, res) => {
@@ -79,7 +79,7 @@ animeController.put('/:animeId', isAuth, async (req, res) => {
         }
 
         const editedAnime = await animeService.editAnime(animeId, newData);
-        res.json(editedAnime ?? {});
+        res.status(201).json(editedAnime ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();
@@ -98,10 +98,11 @@ animeController.delete('/:animeId', isAuth, async (req, res) => {
         await reviewService.deleteReviewsForAnime(animeId);
         await animeService.deleteAnime(animeId);
 
-        res.json({});
+        res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();
     }
 })
 
+export default animeController;
