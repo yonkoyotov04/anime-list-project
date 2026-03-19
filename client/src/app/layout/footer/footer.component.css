@@ -1,0 +1,18 @@
+.ui-footer {
+    margin-top: 40px;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.ui-footer__container {
+    padding: 16px 0;
+    text-align: center;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ui-footer__text {
+    font-size: 13px;
+    color: #6b7280;
+}
