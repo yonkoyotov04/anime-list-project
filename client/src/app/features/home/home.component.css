@@ -1,0 +1,41 @@
+.page-home__container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.home {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.home-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.home-subtitle {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+.home-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.home-section {
+    margin-bottom: 30px;
+}
+
+.home-section__title {
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.home-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
