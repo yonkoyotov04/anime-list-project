@@ -6,6 +6,7 @@ import { CatalogueComponent } from './features/catalogue/catalogue.component';
 import { AboutComponent } from './features/about/about.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { AnimeDetailsComponent } from './features/anime-details/anime-details.component';
+import { MyListComponent } from './features/my-list/my-list.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'about', component: AboutComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'details', component: AnimeDetailsComponent}
+    {path: 'details', component: AnimeDetailsComponent},
+    {path: 'list', component: MyListComponent}
 ];
