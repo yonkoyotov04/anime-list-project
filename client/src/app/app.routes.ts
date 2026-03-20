@@ -5,6 +5,7 @@ import { HomeComponent } from './features/home/home.component';
 import { CatalogueComponent } from './features/catalogue/catalogue.component';
 import { AboutComponent } from './features/about/about.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { AnimeDetailsComponent } from './features/anime-details/anime-details.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'about', component: AboutComponent},
-    {path: 'profile', component: ProfileComponent}
+    {path: 'profile', component: ProfileComponent},
+    {path: 'details', component: AnimeDetailsComponent}
 ];

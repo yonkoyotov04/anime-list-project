@@ -11,6 +11,10 @@ body {
     color: #1f2937;
 }
 
+a {
+    text-decoration: none;
+}
+
 .form-card {
     background-color: #ffffff;
     padding: 24px;
@@ -157,6 +161,7 @@ body {
 }
 
 .catalogue-item__title {
+    color: black;
     font-size: 18px;
     font-weight: 600;
 }
@@ -183,6 +188,7 @@ body {
 }
 
 .catalogue-item__years {
+    color: black;
     font-style: italic;
 }
 
