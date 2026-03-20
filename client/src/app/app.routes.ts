@@ -7,6 +7,7 @@ import { AboutComponent } from './features/about/about.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { AnimeDetailsComponent } from './features/anime-details/anime-details.component';
 import { MyListComponent } from './features/my-list/my-list.component';
+import { AddAnimeComponent } from './features/add-anime/add-anime.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'about', component: AboutComponent},
     {path: 'profile', component: ProfileComponent},
     {path: 'details', component: AnimeDetailsComponent},
-    {path: 'list', component: MyListComponent}
+    {path: 'list', component: MyListComponent},
+    {path: 'create', component: AddAnimeComponent}
 ];

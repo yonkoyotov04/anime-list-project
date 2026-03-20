@@ -95,7 +95,6 @@ a {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* Variants */
 .ui-btn--primary {
     background-color: #6366f1;
     color: #ffffff;
@@ -128,7 +127,6 @@ a {
     gap: 14px;
 }
 
-/* ===== ITEM ===== */
 .catalogue-item {
     display: flex;
     align-items: center;
