@@ -1,0 +1,58 @@
+.page-profile__container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.profile-card {
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.profile-card__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.profile-card__username {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-card__bio {
+    color: #374151;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.profile-card__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.profile-reviews {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+.profile-reviews__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+}

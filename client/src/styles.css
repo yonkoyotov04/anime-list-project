@@ -185,3 +185,41 @@ body {
 .catalogue-item__years {
     font-style: italic;
 }
+
+.review-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.review-item__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.review-item__username {
+    font-weight: 600;
+}
+
+.review-item__rating {
+    margin-left: auto;
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.review-item__text {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+}
