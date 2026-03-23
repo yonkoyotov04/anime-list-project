@@ -27,8 +27,7 @@ const animeSchema = new Schema({
     },
     endDate: {
         type: String,
-        required: false,
-        default: 'Ongoing'
+        required: false
     },
     description: {
         type: String,

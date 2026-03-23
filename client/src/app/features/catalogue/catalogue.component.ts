@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
-import { Auth } from '../../core/services/auth.service';
+import { Api } from '../../core/services/api.service';
+import { Anime } from '../../shared/interfaces/anime';
+import { AnimeItemComponent } from '../../shared/components/anime-item/anime-item.component';
 
 @Component({
-  selector: 'app-catalogue',
-  imports: [RouterLink],
-  templateUrl: './catalogue.component.html',
-  styleUrl: './catalogue.component.css',
+    selector: 'app-catalogue',
+    imports: [AnimeItemComponent],
+    templateUrl: './catalogue.component.html',
+    styleUrl: './catalogue.component.css',
 })
 export class CatalogueComponent implements OnInit {
-  constructor(private authService: Auth) {}
+    animes = signal<Anime[]|null>(null);
 
-  ngOnInit(): void {
-    console.log(this.authService.user());
-  }
+    constructor(private apiService: Api) { }
+
+    ngOnInit(): void {
+        this.apiService.getAnime().subscribe((animes) => {
+            this.animes.set(animes);
+        })
+    }
 }

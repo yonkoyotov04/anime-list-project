@@ -6,11 +6,17 @@ import reviewService from "../services/reviewService.js";
 
 const animeController = Router();
 
-animeController.get('/', async (req, res) => {
+animeController.get('/all', async (req, res) => {
     const filter = req.query;
     const animes = await animeService.getAllAnime(filter);
 
+    console.log(animes);
+
     res.status(200).json(animes ?? []);
+})
+
+animeController.get('/wake', (req, res) => {
+    res.status(200).send('WAKE UP!');
 })
 
 animeController.post('/', isAuth, async (req, res) => {
@@ -25,6 +31,10 @@ animeController.post('/', isAuth, async (req, res) => {
     animeData['endDate'] = animeData.endDate.trim();
     animeData['description'] = animeData.description.trim();
     animeData['imageUrl'] = animeData.imageUrl.trim();
+
+    if (animeData['endDate'] === '') {
+        animeData['endDate'] = 'Ongoing';
+    }
 
     try {
         const anime = await animeService.createAnime(animeData, userId);

@@ -1,0 +1,15 @@
+<a [routerLink]="['/details', anime.id]">
+    <div class="catalogue-item">
+        <img src={{anime.imageUrl}}
+            class="catalogue-item__image" />
+
+        <div class="catalogue-item__content">
+            <h2 class="catalogue-item__title">{{anime.title}}</h2>
+            <span class="catalogue-item__years">{{anime.startDate}} - {{anime.endDate}}</span>
+        </div>
+
+        <div class="catalogue-item__rating-wrapper">
+            <span class="catalogue-item__rating">⭐ 9/10</span>
+        </div>
+    </div>
+</a>

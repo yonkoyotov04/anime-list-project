@@ -17,7 +17,7 @@ export const routes: Routes = [
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'about', component: AboutComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'details', component: AnimeDetailsComponent},
+    {path: 'details/:animeId', component: AnimeDetailsComponent},
     {path: 'list', component: MyListComponent},
     {path: 'create', component: AddAnimeComponent},
     {path: '**', component: NotFoundComponent}
