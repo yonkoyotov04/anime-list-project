@@ -26,6 +26,7 @@
 
 .ui-header__link {
     text-decoration: none;
+    cursor: pointer;
     color: #374151;
     font-size: 14px;
     transition: color 0.2s;
