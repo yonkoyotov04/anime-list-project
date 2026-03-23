@@ -36,7 +36,7 @@ userController.post('/register', isGuest, async (req, res) => {
 })
 
 userController.post('/login', isGuest, async (req, res) => {
-    const {email, password} = req.body;
+    let {email, password} = req.body;
 
     email = email.trim();
     password = password.trim();

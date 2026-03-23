@@ -1,74 +1,119 @@
 <main class="page-auth">
-        <div class="page-auth__container">
+    <div class="page-auth__container">
 
-            <div class="form-card">
-                <h1 class="form-card__title">Create Account</h1>
+        <div class="form-card">
+            <h1 class="form-card__title">Create Account</h1>
 
-                <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-                    <div class="form-group">
-                        <label class="form-group__label">Email</label>
-                        <input type="email" 
-                        name="email" 
-                        class="form-group__input" 
-                        formControlName="email" 
-                        email 
-                        minlength="5" 
-                        maxlength="30"/>
-                    </div>
+                <div class="form-group">
+                    <label class="form-group__label">Email</label>
+                    <input type="email" name="email" class="form-group__input" formControlName="email" email
+                        minlength="5" maxlength="30" />
 
-                    <div class="form-group">
-                        <label class="form-group__label">Username</label>
-                        <input type="text" 
-                        name="username" 
-                        class="form-group__input" 
-                        formControlName="username" 
-                        minlength="3" 
-                        maxlength="30" />
-                    </div>
+                    @if (emailControl?.invalid && emailControl?.touched) {
+                        <div class="input-error">
+                            @if (emailControl?.errors?.['required']) {
+                                An email is required!
+                            }
+                            @if (emailControl?.errors?.['minLength']) {
+                                Your email is too short!
+                            }
+                            @if (emailControl?.errors?.['maxLength']) {
+                                Your email is too long!
+                            }
+                            @if (emailControl?.errors?.['email']) {
+                                Your email is invalid!
+                            }
+                        </div>
+                    }
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-group__label">Password</label>
-                        <input type="password" 
-                        name="password" 
-                        class="form-group__input" 
-                        formControlName="password" 
-                        minlength="6" 
-                        maxlength="20" />
-                    </div>
+                <div class="form-group">
+                    <label class="form-group__label">Username</label>
+                    <input type="text" name="username" class="form-group__input" formControlName="username"
+                        minlength="3" maxlength="30" />
 
-                    <div class="form-group">
-                        <label class="form-group__label">Repeat Password</label>
-                        <input type="password" 
-                        name="rePassword" 
-                        class="form-group__input" 
-                        formControlName="rePassword" 
-                        minlength="6" 
-                        maxlength="20" />
-                    </div>
+                    @if (usernameControl?.invalid && usernameControl?.touched) {
+                        <div class="input-error">
+                            @if (usernameControl?.errors?.['required']) {
+                                A username is required!
+                            }
+                            @if (usernameControl?.errors?.['minLength']) {
+                                Your username is too short!
+                            }
+                            @if (usernameControl?.errors?.['maxLength']) {
+                                Your username is too long!
+                            }
+                        </div>
+                    }
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-group__label">Profile Picture</label>
-                        <input type="text" 
-                        name="profilePic" 
-                        class="form-group__input" 
-                        formControlName="profilePic" />
-                    </div>
+                <div class="form-group">
+                    <label class="form-group__label">Password</label>
+                    <input type="password" name="password" class="form-group__input" formControlName="password"
+                        minlength="6" maxlength="20" />
 
-                    <div class="form-group">
-                        <label class="form-group__label">Bio</label>
-                        <textarea name="bio" 
-                        class="form-group__textarea" 
-                        formControlName="bio"></textarea>
-                    </div>
+                    @if (passwordControl?.invalid && passwordControl?.touched) {
+                        <div class="input-error">
+                            @if (passwordControl?.errors?.['required']) {
+                                A password is required!
+                            }
+                            @if (passwordControl?.errors?.['minLength']) {
+                                Your password should be at least 6 characters!
+                            }
+                            @if (passwordControl?.errors?.['maxLength']) {
+                                Your password can't be more than 20 characters!
+                            }
+                            @if (passwordControl?.errors?.['pattern']) {
+                                Your password can only include numbers and letters!
+                            }
+                        </div>
+                    }
+                </div>
 
-                    <div class="form-actions">
-                        <button type="submit" class="ui-btn ui-btn--primary">Register</button>
-                        <button type="button" class="ui-btn ui-btn--secondary">Cancel</button>
-                    </div>
+                <div class="form-group">
+                    <label class="form-group__label">Repeat Password</label>
+                    <input type="password" name="rePassword" class="form-group__input" formControlName="rePassword"
+                        minlength="6" maxlength="20" />
 
-                </form>
-            </div>
+                    @if (rePasswordControl?.invalid && rePasswordControl?.touched) {
+                        <div class="input-error">
+                            @if (rePasswordControl?.errors?.['required']) {
+                                Repeat your password!
+                            }
+                            @if (rePasswordControl?.value !== passwordControl?.value) {
+                                Password mismatch!
+                            }
+                        </div>
+                    }
+                </div>
 
+                <div class="form-group">
+                    <label class="form-group__label">Profile Picture</label>
+                    <input type="text" name="profilePic" class="form-group__input" formControlName="profilePic" />
+
+                    @if (profilePicControl?.invalid && profilePicControl?.touched) {
+                        <div class="input-error">
+                            @if (profilePicControl?.errors?.['pattern']) {
+                                The image url is invalid!
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label">Bio</label>
+                    <textarea name="bio" class="form-group__textarea" formControlName="bio"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="ui-btn ui-btn--primary" [disabled]="registerForm.invalid">Register</button>
+                    <button type="button" class="ui-btn ui-btn--secondary">Cancel</button>
+                </div>
+
+            </form>
         </div>
-    </main>
+
+    </div>
+</main>

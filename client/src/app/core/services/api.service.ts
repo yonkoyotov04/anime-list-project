@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anime } from '../../shared/interfaces/anime';
 import { Review } from '../../shared/interfaces/review';
@@ -9,8 +9,11 @@ import { Review } from '../../shared/interfaces/review';
 })
 export class Api {
     private apiUrl = 'http://localhost:1298'
+    private _animes = signal<Anime[]|null>(null);
 
-    constructor(private http: HttpClient) { }
+    animes = this._animes.asReadonly();
+
+    constructor(private http: HttpClient) {}
 
     getAnime(): Observable<Anime[]> {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/`);
@@ -18,6 +21,10 @@ export class Api {
 
     getSpecificAnime(id: string): Observable<Anime> {
         return this.http.get<Anime>(`${this.apiUrl}/anime/${id}`);
+    }
+
+    postAnime(animeData: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/anime`, animeData);
     }
 
     getOwnerStatus(id: string): Observable<boolean> {

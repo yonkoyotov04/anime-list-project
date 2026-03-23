@@ -15,8 +15,8 @@ export class RegisterComponent {
 
     registerForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(30)]],
-        username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30), Validators.pattern((/^[a-zA-Z0-9]+$/))]],
-        password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+        username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+        password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern((/^[a-zA-Z0-9]+$/))]],
         rePassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
         profilePic: ['', [Validators.pattern((/^https?:\/\//))]],
         bio: [''],
@@ -47,7 +47,6 @@ export class RegisterComponent {
     }
 
     onSubmit(): void {
-        console.log('SUBMIT ENTERED');
         if (this.registerForm.invalid) {
             this.registerForm.markAllAsTouched();
             return;
@@ -55,7 +54,6 @@ export class RegisterComponent {
 
         this.authService.register({...this.registerForm.value}).subscribe({
             next: (user) => {
-                console.log('NEXT ENTERED');
                 this.authService.setUser(user);
             },
 

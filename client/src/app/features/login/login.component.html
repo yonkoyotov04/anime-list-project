@@ -4,16 +4,36 @@
         <div class="form-card">
             <h1 class="form-card__title">Login</h1>
 
-            <form class="form">
+            <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                     <label class="form-group__label">Email</label>
-                    <input type="email" class="form-group__input" />
+                    <input type="email" 
+                    class="form-group__input"
+                    formControlName="email" />
+
+                    @if (emailControl?.invalid && emailControl?.touched) {
+                        <div class="input-error">
+                            @if (emailControl?.errors?.['required']) {
+                                Input your email first!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Password</label>
-                    <input type="password" class="form-group__input" />
+                    <input type="password" 
+                    class="form-group__input"
+                    formControlName="password" />
+
+                    @if (passwordControl?.invalid && passwordControl?.touched) {
+                        <div class="input-error">
+                            @if (emailControl?.errors?.['required']) {
+                                Input your password first!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-actions">

@@ -22,10 +22,20 @@ export class Auth {
     }
     
     setUser(userData: any) {
-        return this._user.set(userData);
+        this._user.set(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+    }
+
+    loadUser() {
+        const user = localStorage.getItem('user');
+
+        if (user) {
+            this._user.set(JSON.parse(user));
+        }
     }
 
     logout() {
-        return this._user.set(null);
+        this._user.set(null);
+        localStorage.removeItem('user');
     }
 }

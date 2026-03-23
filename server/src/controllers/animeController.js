@@ -14,7 +14,7 @@ animeController.get('/', async (req, res) => {
 })
 
 animeController.post('/', isAuth, async (req, res) => {
-    const animeData = req.body;
+    let animeData = req.body;
     const userId = req.user?.id;
 
     animeData['title'] = animeData.title.trim();
@@ -62,7 +62,7 @@ animeController.get('/:animeId/status', isAuth, async (req, res) => {
 animeController.put('/:animeId', isAuth, async (req, res) => {
     const animeId = req.params.animeId;
     const anime = await animeService.getOneAnime(animeId);
-    const newData = req.body;
+    let newData = req.body;
 
     newData['title'] = newData.title.trim();
     newData['author'] = newData.author.trim();
