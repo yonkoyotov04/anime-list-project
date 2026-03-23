@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import 'dotenv/config'
 import routes from './routes.js'
+import authMiddleware from './middlewares/authMiddleware.js'
 
 const app = express();
 
@@ -14,9 +15,16 @@ try {
     console.log("Failed to connect to database", error.message);
 }
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'X-Authorization']
+}));
+
 app.use(express.json());
 app.use(cookieParser());
+app.use(authMiddleware);
 
 app.use(routes);
 

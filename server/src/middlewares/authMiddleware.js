@@ -5,7 +5,7 @@ export default function authMiddleware(req, res, next) {
     const token = req.header('X-Authorization');
 
     if (!token) {
-        next();
+        return next();
     }
 
     try {
@@ -13,9 +13,9 @@ export default function authMiddleware(req, res, next) {
 
         req.user = decodedToken;
         req.isAuthenticated = true;
-        req.isAdmin = user.email === 'jjotov488@gmail.com' ? true : false;
+        req.isAdmin = req.user?.email === 'jjotov488@gmail.com' ? true : false;
 
-        next()
+        return next();
     } catch (error) {
         res.status(401).end();
     }

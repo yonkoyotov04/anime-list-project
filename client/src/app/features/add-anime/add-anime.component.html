@@ -4,48 +4,145 @@
         <div class="form-card">
             <h1 class="form-card__title">Add New Anime</h1>
 
-            <form class="form">
+            <form class="form" [formGroup]="animeForm" (ngSubmit)="onSubmit()">
 
                 <div class="form-group">
                     <label class="form-group__label">Title</label>
-                    <input type="text" class="form-group__input" />
+                    <input name="title" 
+                    type="text" 
+                    class="form-group__input"
+                    minlength="2"
+                    formControlName="title" />
+
+                    @if (titleControl?.invalid && titleControl?.touched) {
+                        <div class="input-error">
+                            @if (titleControl?.errors?.['required']) {
+                                An anime title is required!
+                            }
+                            @if (titleControl?.errors?.['minLength']) {
+                                The anime's title is too short!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Author</label>
-                    <input type="text" class="form-group__input" />
+                    <input type="text" 
+                    class="form-group__input"
+                    minlength="3"
+                    formControlName="author" />
+
+                    @if (authorControl?.invalid && authorControl?.touched) {
+                        <div class="input-error">
+                            @if (authorControl?.errors?.['required']) {
+                                An author is required!
+                            }
+                            @if (authorControl?.errors?.['minLength']) {
+                                The author's name is too short!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Production Company</label>
-                    <input type="text" class="form-group__input" />
+                    <input type="text" 
+                    class="form-group__input"
+                    minlength="3"
+                    formControlName="producedBy" />
+
+                    @if (producedByControl?.invalid && producedByControl?.touched) {
+                        <div class="input-error">
+                            @if (producedByControl?.errors?.['required']) {
+                                A production company is required!
+                            }
+                            @if (producedByControl?.errors?.['minLength']) {
+                                The production company's name is too short!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Genres</label>
-                    <input type="text" class="form-group__input" placeholder="e.g. Action, Drama" />
+                    <input type="text" 
+                    class="form-group__input"
+                    minlength="3"
+                    formControlName="genres" />
+
+                    @if (genresControl?.invalid && genresControl?.touched) {
+                        <div class="input-error">
+                            @if (genresControl?.errors?.['required']) {
+                                At least one genre is required!
+                            }
+                            @if (genresControl?.errors?.['minLength']) {
+                                The genres are too short!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Image URL</label>
-                    <input type="text" class="form-group__input" />
+                    <input type="text" 
+                    class="form-group__input"
+                    formControlName="imageUrl" />
+
+                    @if (imageUrlControl?.invalid && imageUrlControl?.touched) {
+                        <div class="input-error">
+                            @if (imageUrlControl?.errors?.['required']) {
+                                An image is required!
+                            }
+                            @if (imageUrlControl?.errors?.['pattern']) {
+                                The image URL is invalid!
+                            }
+                        </div>
+                    }
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-group__label">Start Date</label>
-                        <input type="date" class="form-group__input" />
+                        <input type="date" 
+                        class="form-group__input" 
+                        formControlName="startDate"/>
+
+                         @if (startDateControl?.invalid && startDateControl?.touched) {
+                            <div class="input-error">
+                                @if (startDateControl?.errors?.['required']) {
+                                    A start date is required!
+                                }
+                            </div>
+                    }
                     </div>
 
                     <div class="form-group">
                         <label class="form-group__label">End Date</label>
-                        <input type="date" class="form-group__input" />
+                        <input type="date" 
+                        class="form-group__input"
+                        formControlName="endDate" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-group__label">Description</label>
-                    <textarea class="form-group__textarea"></textarea>
+                    <textarea 
+                    class="form-group__textarea"
+                    minlength="8"
+                    formControlName="description"></textarea>
+                    
+                    @if (descriptionControl?.invalid && descriptionControl?.touched) {
+                        <div class="input-error">
+                            @if (descriptionControl?.errors?.['required']) {
+                                A description is required!
+                            }
+                            @if (descriptionControl?.errors?.['minLength']) {
+                                The description is too short!
+                            }
+                        </div>
+                    }
+                
                 </div>
 
                 <div class="form-actions">

@@ -1,19 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anime } from '../../shared/interfaces/anime';
 import { Review } from '../../shared/interfaces/review';
+import { Auth } from './auth.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class Api {
     private apiUrl = 'http://localhost:1298'
-    private _animes = signal<Anime[]|null>(null);
+    private _animes = signal<Anime[] | null>(null);
 
     animes = this._animes.asReadonly();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: Auth) {}
 
     getAnime(): Observable<Anime[]> {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/`);
@@ -23,8 +24,13 @@ export class Api {
         return this.http.get<Anime>(`${this.apiUrl}/anime/${id}`);
     }
 
-    postAnime(animeData: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/anime`, animeData);
+    postAnime(animeData: any): Observable<Anime> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'X-Authorization': this.authService.user()?.accessToken
+        })
+
+        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers, withCredentials: true });
     }
 
     getOwnerStatus(id: string): Observable<boolean> {
