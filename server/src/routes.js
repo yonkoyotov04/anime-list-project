@@ -5,7 +5,7 @@ import reviewController from "./controllers/reviewController.js";
 
 const routes = Router();
 
-routes.use(userController);
+routes.use('/user', userController);
 routes.use('/anime', animeController);
 routes.use('/review', reviewController);
 

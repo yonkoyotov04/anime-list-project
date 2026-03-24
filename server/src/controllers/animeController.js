@@ -6,17 +6,11 @@ import reviewService from "../services/reviewService.js";
 
 const animeController = Router();
 
-animeController.get('/all', async (req, res) => {
+animeController.get('/', async (req, res) => {
     const filter = req.query;
     const animes = await animeService.getAllAnime(filter);
 
-    console.log(animes);
-
     res.status(200).json(animes ?? []);
-})
-
-animeController.get('/wake', (req, res) => {
-    res.status(200).send('WAKE UP!');
 })
 
 animeController.post('/', isAuth, async (req, res) => {
@@ -50,6 +44,11 @@ animeController.get('/:animeId', async (req, res) => {
 
     try {
         const anime = await animeService.getOneAnime(animeId);
+
+        if (!anime) {
+            res.status(404).end();
+        }
+        
         res.status(200).json(anime ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);

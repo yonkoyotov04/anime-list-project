@@ -20,7 +20,7 @@
         </div>
 
         <div class="catalogue-list">            
-            @for(anime of animes(); track anime.id) {
+            @for(anime of animes(); track anime._id) {
                 <app-anime-item [anime] = 'anime' />
             }
         </div>

@@ -57,7 +57,7 @@ reviewController.get('/:animeId/status', isAuth, async (req, res) => {
     return res.status(200).json(hasLeftReview);
 })
 
-reviewController.post('/animeId', isAuth, async (req, res) => {
+reviewController.post('/:animeId', isAuth, async (req, res) => {
     const animeId = req.params.animeId;
     const userId = req.user?.id;
     const reviewData = req.body;
@@ -79,7 +79,7 @@ reviewController.post('/animeId', isAuth, async (req, res) => {
     }
 })
 
-reviewController.put('/reviewId', isAuth, async (req, res) => {
+reviewController.put('/:reviewId', isAuth, async (req, res) => {
     const reviewId = req.params.reviewId;
     const userId = req.user?.id;
     const animeId = await reviewService.getReviewById(reviewId).anime;

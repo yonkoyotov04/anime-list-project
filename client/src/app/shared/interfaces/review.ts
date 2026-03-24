@@ -1,5 +1,5 @@
 export interface Review {
-    id: string,
+    _id: string,
     anime: {
         id: string,
         title: string,

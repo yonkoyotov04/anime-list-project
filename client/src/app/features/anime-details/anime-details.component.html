@@ -3,34 +3,32 @@
 
         <div class="details-card">
 
-            <img src="https://aot-portal.com/wp/wp-content/uploads/2025/11/%E5%8A%87%E5%A0%B4%E7%89%88%E9%80%B2%E6%92%83KV_logo-%E3%81%AE%E3%82%B3%E3%83%94%E3%83%BC-712x1013.jpg"
+            <img src={{currentAnime()!.imageUrl}}
                 class="details-card__image" />
 
             <div class="details-card__content">
 
-                <h1 class="details-card__title">Attack on Titan</h1>
+                <h1 class="details-card__title">{{currentAnime()!.title}}</h1>
 
                 <div class="details-card__meta">
-                    <span>⭐ 9.0/10</span>
-                    <span>2013 - 2023</span>
+                    <span>⭐ 9/10</span>
+                    <span>{{currentAnime()!.startDate}} - {{currentAnime()!.endDate}}</span>
                 </div>
 
                 <p class="details-card__description">
-                    Humanity lives inside massive walls to protect themselves from Titans,
-                    gigantic humanoid creatures. Eren Yeager joins the fight after his life
-                    is changed forever by a devastating attack.
+                   {{currentAnime()!.description}}
                 </p>
 
                 <div class="details-card__info-grid">
-                    <div><strong>Author:</strong> Hajime Isayama</div>
-                    <div><strong>Studio:</strong> MAPPA / Wit Studio</div>
-                    <div><strong>Genres:</strong> Action, Drama, Fantasy</div>
+                    <div><strong>Author:</strong> {{currentAnime()!.author}}</div>
+                    <div><strong>Studio:</strong> {{currentAnime()!.producedBy}}</div>
+                    <div><strong>Genres:</strong> {{currentAnime()!.genres}}</div>
                 </div>
 
                 <div class="details-card__stats">
-                    <span class="details-card__stat details-card__stat--watching">Watching: 1200</span>
-                    <span class="details-card__stat details-card__stat--completed">Completed: 5400</span>
-                    <span class="details-card__stat details-card__stat--dropped">Dropped: 320</span>
+                    <span class="details-card__stat details-card__stat--watching">Watching: {{currentAnime()!.currentlyWatched}}</span>
+                    <span class="details-card__stat details-card__stat--completed">Completed: {{currentAnime()!.completed}}</span>
+                    <span class="details-card__stat details-card__stat--dropped">Dropped: {{currentAnime()!.dropped}}</span>
                 </div>
 
             </div>

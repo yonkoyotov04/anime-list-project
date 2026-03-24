@@ -17,7 +17,7 @@ export class Api {
     constructor(private http: HttpClient, private authService: Auth) {}
 
     getAnime(): Observable<Anime[]> {
-        return this.http.get<Anime[]>(`${this.apiUrl}/anime/all`);
+        return this.http.get<Anime[]>(`${this.apiUrl}/anime/`);
     }
 
     getSpecificAnime(id: string): Observable<Anime> {
