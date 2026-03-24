@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Auth } from '../../core/services/auth.service';
 
@@ -10,6 +10,10 @@ import { Auth } from '../../core/services/auth.service';
 })
 export class Header {
     constructor(private authService: Auth) {}
+
+    isAuthenticated() {
+        return this.authService.isAuthenticated();
+    }
 
     logout() {
         this.authService.logout();

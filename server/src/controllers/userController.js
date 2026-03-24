@@ -8,6 +8,10 @@ import reviewService from "../services/reviewService.js";
 
 const userController = Router();
 
+userController.get('/wake', (req, res) => {
+    res.status(200).send('Wake up!');
+})
+
 userController.post('/register', isGuest, async (req, res) => {
     let userData = req.body;
 
@@ -18,7 +22,7 @@ userController.post('/register', isGuest, async (req, res) => {
     userData['profilePic'] = userData.profilePic.trim();
 
     try {
-        const {user, refreshToken} = await userService.register(userData);
+        const { user, refreshToken } = await userService.register(userData);
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
@@ -36,13 +40,13 @@ userController.post('/register', isGuest, async (req, res) => {
 })
 
 userController.post('/login', isGuest, async (req, res) => {
-    let {email, password} = req.body;
+    let { email, password } = req.body;
 
     email = email.trim();
     password = password.trim();
 
     try {
-        const {user, refreshToken} = await userService.login(email, password);
+        const { user, refreshToken } = await userService.login(email, password);
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
@@ -59,13 +63,6 @@ userController.post('/login', isGuest, async (req, res) => {
     }
 })
 
-userController.get('/:userId', isAuth, async(req, res) => {
-    const userId = req.params.userId;
-    const userData = await userService.getUserData(userId);
-
-    res.status(200).json(userData);
-})
-
 userController.post('/refresh', async (req, res) => {
     const token = req.cookies['refreshToken'];
 
@@ -79,9 +76,16 @@ userController.post('/refresh', async (req, res) => {
     res.status(201).json(newToken);
 })
 
-userController.post('/logout', isAuth, (req, res) => {
+userController.get('/logout', isAuth, (req, res) => {
     res.clearCookie('refreshToken');
     res.sendStatus(204);
+})
+
+userController.get('/:userId', isAuth, async (req, res) => {
+    const userId = req.params.userId;
+    const userData = await userService.getUserData(userId);
+
+    res.status(200).json(userData);
 })
 
 userController.put('/:userId', isAuth, async (req, res) => {
@@ -130,10 +134,6 @@ userController.delete('/:userId', isAuth, async (req, res) => {
         res.statusMessage = getErrorMessage(error);
         res.sendStatus(200);
     }
-})
-
-userController.get('/wake', (req, res) => {
-    res.status(200).send('Wake up!');
 })
 
 export default userController;
