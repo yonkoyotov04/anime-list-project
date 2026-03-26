@@ -5,6 +5,7 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import jwt from 'jsonwebtoken';
 import { generateAuthToken } from "../utils/tokenUtil.js";
 import reviewService from "../services/reviewService.js";
+import User from "../models/User.js";
 
 const userController = Router();
 
@@ -133,6 +134,18 @@ userController.delete('/:userId', isAuth, async (req, res) => {
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.sendStatus(400);
+    }
+})
+
+userController.get('/:userId/list', isAuth, async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const animeList = await userService.getAllAnimesForList(userId);
+        res.status(200).json(animeList ?? [])
+    } catch (error) {
+        res.statusMessage = getErrorMessage(error);
+        res.sendStatus(401);
     }
 })
 

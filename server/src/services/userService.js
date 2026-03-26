@@ -104,23 +104,27 @@ export default {
         return User.findByIdAndDelete(userId);
     },
 
+    getAllAnimesForList(userId) {
+        return User.findById(userId).select({_id: true, animeList: true}).populate({path: 'animeList.anime', select: 'title imageUrl'});
+    },
+
     async addAnimeToWatched(userId, animeId) {
-        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': {$ne: animeId}}, {$push: {animeList: {animeId, status: "Watching"}}});
+        await User.findOneAndUpdate({_id: userId, 'animeList.anime': {$ne: animeId}}, {$push: {animeList: {anime: animeId, status: "Watching"}}});
         return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: 1}}, {runValidators: true, returnDocument: true});
     },
 
     async removeAnimeFromList(userId, animeId) {
-        await User.findOneAndUpdate({_id: userId}, {$pull: {animeList: {animeId}}});
+        await User.findOneAndUpdate({_id: userId}, {$pull: {animeList: {anime: animeId}}});
         return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: -1}}, {runValidators: true, returnDocument: true});
     },
 
     async completeAnime(userId, animeId) {
-        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': animeId}, {$set: {'animeList.$.status': 'Completed'}});
+        await User.findOneAndUpdate({_id: userId, 'animeList.anime': animeId}, {$set: {'animeList.$.status': 'Completed'}});
         return Anime.findByIdAndUpdate(animeId, { $inc: {completed: 1}}, {runValidators: true, returnDocument: true});
     },
 
     async dropAnime(userId, animeId) {
-        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': animeId}, {$set: {'animeList.$.status': 'Dropped'}});
+        await User.findOneAndUpdate({_id: userId, 'animeList.anime': animeId}, {$set: {'animeList.$.status': 'Dropped'}});
         return Anime.findByIdAndUpdate(animeId, { $inc: {dropped: 1}}, {runValidators: true, returnDocument: true});
     }
 }

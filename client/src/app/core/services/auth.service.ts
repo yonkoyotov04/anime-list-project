@@ -62,6 +62,14 @@ export class Auth {
 
     }
 
+    getAnimeList(userId?: string) {
+        const headers = new HttpHeaders({
+            'X-Authorization': this._user()?.accessToken
+        })
+
+        return this.http.get(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, {headers, withCredentials: true});
+    }
+
     addAnimeToList(animeId: string) {
         const headers = new HttpHeaders({
             'X-Authorization': this._user()?.accessToken

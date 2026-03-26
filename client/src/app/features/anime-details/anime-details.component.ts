@@ -25,8 +25,7 @@ export class AnimeDetailsComponent implements OnInit {
         })
 
         this.authService.getUserData().subscribe((user) => {
-            this.isWatched.set(user.animeList.some(item => item.animeId.toString() === this.animeId));
-            console.log(this.isWatched());
+            this.isWatched.set(user.animeList.some(item => item.anime.toString() === this.animeId));
         })
     }
 

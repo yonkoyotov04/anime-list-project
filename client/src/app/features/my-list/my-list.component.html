@@ -4,99 +4,39 @@
         <h2 class="list-section__title">Currently Watching</h2>
         <section class="list-section">
 
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://m.media-amazon.com/images/M/MV5BN2EzYTYyNGUtOTE2ZS00ZTljLWE5M2EtZDViYjhmYzgwNThhXkEyXkFqcGc@._V1_.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Attack on Titan</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--success">Complete</button>
-                    <button class="ui-btn ui-btn--danger">Drop</button>
-                </div>
-            </div>
-
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://m.media-amazon.com/images/M/MV5BN2EzYTYyNGUtOTE2ZS00ZTljLWE5M2EtZDViYjhmYzgwNThhXkEyXkFqcGc@._V1_.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Attack on Titan</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--success">Complete</button>
-                    <button class="ui-btn ui-btn--danger">Drop</button>
-                </div>
-            </div>
-
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://m.media-amazon.com/images/M/MV5BN2EzYTYyNGUtOTE2ZS00ZTljLWE5M2EtZDViYjhmYzgwNThhXkEyXkFqcGc@._V1_.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Attack on Titan</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--success">Complete</button>
-                    <button class="ui-btn ui-btn--danger">Drop</button>
-                </div>
-            </div>
-
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/0/07/JujutsuKaisenkeyvisual.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Jujutsu Kaisen</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--success">Complete</button>
-                    <button class="ui-btn ui-btn--danger">Drop</button>
-                </div>
-            </div>
+        @if(watching()!.length > 0) {
+            @for(data of watching(); track data) {
+                <app-anime-list-item [data]="data" />
+            }
+        } @else {
+            <h2 class="no-anime-message">You are not watching any anime at the moment</h2>
+        }
 
         </section>
 
         <h2 class="list-section__title">Completed</h2>
         <section class="list-section">
             
-
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://m.media-amazon.com/images/M/MV5BMzNiODA5NjYtYWExZS00OTc4LTg3N2ItYWYwYTUyYmM5MWViXkEyXkFqcGc@._V1_.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Fullmetal Alchemist: Brotherhood</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--secondary">Delete</button>
-                </div>
-            </div>
+        @if(completed()!.length > 0) {
+            @for(data of completed(); track data) {
+                <app-anime-list-item [data]="data" />
+            }
+        } @else {
+            <h2 class="no-anime-message">You have not completed any anime yet</h2>
+        }
 
         </section>
 
         <h2 class="list-section__title">Dropped</h2>
         <section class="list-section">
-            
 
-            <div class="list-item">
-                <a href="#">
-                    <img src="https://m.media-amazon.com/images/M/MV5BZWI2NzZhMTItOTM3OS00NjcyLThmN2EtZGZjMjlhYWMwODMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
-                        class="list-item__image" />
-                </a>
-
-                <span class="list-item__title">Tokyo Ghoul</span>
-
-                <div class="list-item__actions">
-                    <button class="ui-btn ui-btn--secondary">Delete</button>
-                </div>
-            </div>
+        @if(dropped()!.length > 0) {
+            @for(data of dropped(); track data) {
+                <app-anime-list-item [data]="data" />
+            }
+        } @else {
+            <h2 class="no-anime-message">You have not dropped any anime yet</h2>
+        }
 
         </section>
 

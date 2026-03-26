@@ -32,7 +32,7 @@ const userSchema = new Schema({
     },
     animeList: [
         {
-            animeId: {
+            anime: {
                 type: Types.ObjectId,
                 ref: 'Anime'
             },

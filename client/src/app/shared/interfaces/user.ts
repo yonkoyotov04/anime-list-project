@@ -5,7 +5,7 @@ export interface User {
     bio: string,
     profilePic: string
     animeList: [{
-        animeId: string,
+        anime: string,
         status: string
     }]
 }
