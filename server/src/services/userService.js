@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from 'bcrypt';
 import { generateAuthToken, generateRefeshToken } from "../utils/tokenUtil.js";
+import Anime from "../models/Anime.js";
 
 export default {
     async register(userData) {
@@ -101,5 +102,25 @@ export default {
 
     deleteProfile(userId) {
         return User.findByIdAndDelete(userId);
+    },
+
+    async addAnimeToWatched(userId, animeId) {
+        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': {$ne: animeId}}, {$push: {animeList: {animeId, status: "Watching"}}});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: 1}}, {runValidators: true, returnDocument: true});
+    },
+
+    async removeAnimeFromList(userId, animeId) {
+        await User.findOneAndUpdate({_id: userId}, {$pull: {animeList: {animeId}}});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: -1}}, {runValidators: true, returnDocument: true});
+    },
+
+    async completeAnime(userId, animeId) {
+        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': animeId}, {$set: {'animeList.$.status': 'Completed'}});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {completed: 1}}, {runValidators: true, returnDocument: true});
+    },
+
+    async dropAnime(userId, animeId) {
+        await User.findOneAndUpdate({_id: userId, 'animeList.animeId': animeId}, {$set: {'animeList.$.status': 'Dropped'}});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {dropped: 1}}, {runValidators: true, returnDocument: true});
     }
 }

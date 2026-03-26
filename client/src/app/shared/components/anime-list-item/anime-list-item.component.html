@@ -1,0 +1,13 @@
+<div class="list-item">
+    <a [routerLink]="['/details', anime._id]">
+        <img src={{anime.imageUrl}}
+            class="list-item__image" />
+    </a>
+
+    <span class="list-item__title">{{anime.title}}</span>
+
+    <div class="list-item__actions">
+        <button class="ui-btn ui-btn--success">Complete</button>
+        <button class="ui-btn ui-btn--danger">Drop</button>
+    </div>
+</div>

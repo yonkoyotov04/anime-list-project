@@ -41,8 +41,14 @@
                 ⭐ Leave Review
             </button>
 
-            <button class="btn btn-secondary">
-                ▶️ Watch
+            <button (click)="handleWatched()" class="btn btn-secondary">
+                @if (!isWatched()) {
+                    ▶️ Add to Watched
+                } 
+                @else {
+                    ❌ Remove from Watched
+                }
+                
             </button>
         </div>
 

@@ -1,10 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Auth } from '../../core/services/auth.service';
 import { User } from '../../shared/interfaces/user';
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-profile',
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
 })

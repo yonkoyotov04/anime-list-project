@@ -132,7 +132,59 @@ userController.delete('/:userId', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(200);
+        res.sendStatus(400);
+    }
+})
+
+userController.put('/:animeId/watch', isAuth, async (req, res) => {
+    const userId = req.user?.id;
+    const animeId = req.params.animeId;
+
+    try {
+        await userService.addAnimeToWatched(userId, animeId);
+        res.status(200).end();
+    } catch (error) {
+        res.statusMessage = getErrorMessage(error);
+        res.sendStatus(400)
+    }
+})
+
+userController.put('/:animeId/remove', isAuth, async (req, res) => {
+    const userId = req.user?.id;
+    const animeId = req.params.animeId;
+
+    try {
+        await userService.removeAnimeFromList(userId, animeId);
+        res.status(200).end();
+    } catch (error) {
+        res.statusMessage = getErrorMessage(error);
+        res.sendStatus(400)
+    }
+})
+
+userController.put('/:animeId/complete', isAuth, async (req, res) => {
+    const userId = req.user?.id;
+    const animeId = req.params.animeId;
+
+    try {
+        await userService.completeAnime(userId, animeId);
+        res.status(200).end();
+    } catch (error) {
+        res.statusMessage = getErrorMessage(error);
+        res.sendStatus(400)
+    }
+})
+
+userController.put('/:animeId/drop', isAuth, async (req, res) => {
+    const userId = req.user?.id;
+    const animeId = req.params.animeId;
+
+    try {
+        await userService.dropAnime(userId, animeId);
+        res.status(200).end();
+    } catch (error) {
+        res.statusMessage = getErrorMessage(error);
+        res.sendStatus(400)
     }
 })
 

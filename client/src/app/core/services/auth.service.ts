@@ -37,16 +37,16 @@ export class Auth {
         }
     }
 
-    getUserData(id: string) {
+    getUserData(id?: string) {
         const headers = new HttpHeaders({
             'X-Authorization': this._user()?.accessToken
         })
-        return this.http.get<User>(`${this.apiUrl}/${id}`, {headers, withCredentials: true})
+        return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { headers, withCredentials: true })
     }
 
     getToken() {
         const userData = localStorage.getItem('user');
-        
+
         if (!userData) {
             return null;
         }
@@ -61,4 +61,37 @@ export class Auth {
         localStorage.removeItem('user');
 
     }
+
+    addAnimeToList(animeId: string) {
+        const headers = new HttpHeaders({
+            'X-Authorization': this._user()?.accessToken
+        })
+
+        return this.http.put(`${this.apiUrl}/${animeId}/watch`, {}, { headers, withCredentials: true });
+    }
+
+    removeAnimeFromList(animeId: string) {
+        const headers = new HttpHeaders({
+            'X-Authorization': this._user()?.accessToken
+        })
+
+        return this.http.put(`${this.apiUrl}/${animeId}/remove`, {}, { headers, withCredentials: true });
+    }
+
+    completeAnime(animeId: string) {
+        const headers = new HttpHeaders({
+            'X-Authorization': this._user()?.accessToken
+        })
+
+        return this.http.put(`${this.apiUrl}/${animeId}/complete`, {}, { headers, withCredentials: true });
+    }
+
+    dropAnime(animeId: string) {
+        const headers = new HttpHeaders({
+            'X-Authorization': this._user()?.accessToken
+        })
+
+        return this.http.put(`${this.apiUrl}/${animeId}/drop`, {}, { headers, withCredentials: true });
+    }
+
 }

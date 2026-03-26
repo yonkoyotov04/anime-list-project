@@ -10,7 +10,6 @@ export default function authMiddleware(req, res, next) {
 
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        console.log('IN HERE')
 
         req.user = decodedToken;
         req.isAuthenticated = true;
@@ -18,7 +17,6 @@ export default function authMiddleware(req, res, next) {
 
         return next();
     } catch (error) {
-        console.log('IN THERE');
         res.status(401).end();
     }
 }

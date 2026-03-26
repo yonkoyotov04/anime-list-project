@@ -6,6 +6,13 @@
 
 .list-section {
     margin-bottom: 30px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-height: 420px;
+    overflow-y: auto;
 }
 
 .list-section__title {
