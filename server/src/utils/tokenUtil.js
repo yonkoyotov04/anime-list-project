@@ -7,7 +7,7 @@ export function generateAuthToken(user) {
         email: user.email
     }
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
 
     return token;
 }

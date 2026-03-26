@@ -22,13 +22,13 @@ export class Auth {
         return this.http.post<User>(`${this.apiUrl}/login`, authData);
     }
 
-    setUser(userData: any) {
+    setUser(userData: any): void {
         this._user.set(userData);
         this.isAuthenticated.set(true);
         localStorage.setItem('user', JSON.stringify(userData));
     }
 
-    loadUser() {
+    loadUser(): void {
         const user = localStorage.getItem('user');
 
         if (user) {
@@ -42,6 +42,16 @@ export class Auth {
             'X-Authorization': this._user()?.accessToken
         })
         return this.http.get<User>(`${this.apiUrl}/${id}`, {headers, withCredentials: true})
+    }
+
+    getToken() {
+        const userData = localStorage.getItem('user');
+        
+        if (!userData) {
+            return null;
+        }
+
+        return JSON.parse(userData).accessToken;
     }
 
     logout() {

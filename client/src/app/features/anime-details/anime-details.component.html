@@ -3,8 +3,7 @@
 
         <div class="details-card">
 
-            <img src={{currentAnime()!.imageUrl}}
-                class="details-card__image" />
+            <img src={{currentAnime()!.imageUrl}} class="details-card__image" />
 
             <div class="details-card__content">
 
@@ -16,7 +15,7 @@
                 </div>
 
                 <p class="details-card__description">
-                   {{currentAnime()!.description}}
+                    {{currentAnime()!.description}}
                 </p>
 
                 <div class="details-card__info-grid">
@@ -26,12 +25,25 @@
                 </div>
 
                 <div class="details-card__stats">
-                    <span class="details-card__stat details-card__stat--watching">Watching: {{currentAnime()!.currentlyWatched}}</span>
-                    <span class="details-card__stat details-card__stat--completed">Completed: {{currentAnime()!.completed}}</span>
-                    <span class="details-card__stat details-card__stat--dropped">Dropped: {{currentAnime()!.dropped}}</span>
+                    <span class="details-card__stat details-card__stat--watching">Watching:
+                        {{currentAnime()!.currentlyWatched}}</span>
+                    <span class="details-card__stat details-card__stat--completed">Completed:
+                        {{currentAnime()!.completed}}</span>
+                    <span class="details-card__stat details-card__stat--dropped">Dropped:
+                        {{currentAnime()!.dropped}}</span>
                 </div>
 
             </div>
+        </div>
+
+        <div class="anime-actions">
+            <button class="btn btn-primary">
+                ⭐ Leave Review
+            </button>
+
+            <button class="btn btn-secondary">
+                ▶️ Watch
+            </button>
         </div>
 
         <div class="reviews-section">
