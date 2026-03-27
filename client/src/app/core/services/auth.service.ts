@@ -12,6 +12,12 @@ export class Auth {
     isAuthenticated = signal<boolean | null>(null);
     user = this._user.asReadonly();
 
+    private getHeaders() {
+        return new HttpHeaders({
+            'X-Authorization': this.user()?.accessToken
+        })
+    }
+
     constructor(private http: HttpClient) { }
 
     register(authData: any): Observable<User> {
@@ -63,43 +69,22 @@ export class Auth {
     }
 
     getAnimeList(userId?: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-
-        return this.http.get(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, {headers, withCredentials: true});
+        return this.http.get(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, { headers: this.getHeaders(), withCredentials: true });
     }
 
     addAnimeToList(animeId: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-
-        return this.http.put(`${this.apiUrl}/${animeId}/watch`, {}, { headers, withCredentials: true });
+        return this.http.put(`${this.apiUrl}/${animeId}/watch`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
     removeAnimeFromList(animeId: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-
-        return this.http.put(`${this.apiUrl}/${animeId}/remove`, {}, { headers, withCredentials: true });
+        return this.http.put(`${this.apiUrl}/${animeId}/remove`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
     completeAnime(animeId: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-
-        return this.http.put(`${this.apiUrl}/${animeId}/complete`, {}, { headers, withCredentials: true });
+        return this.http.put(`${this.apiUrl}/${animeId}/complete`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
     dropAnime(animeId: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-
-        return this.http.put(`${this.apiUrl}/${animeId}/drop`, {}, { headers, withCredentials: true });
+        return this.http.put(`${this.apiUrl}/${animeId}/drop`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
-
 }

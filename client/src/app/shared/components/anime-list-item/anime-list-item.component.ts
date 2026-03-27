@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Anime } from '../../interfaces/anime';
 import { RouterLink } from '@angular/router';
 import { ListItem } from '../../interfaces/list-item';
+import { List } from '../../../core/services/list.service';
 
 @Component({
     selector: 'app-anime-list-item',
@@ -10,5 +10,10 @@ import { ListItem } from '../../interfaces/list-item';
     styleUrl: './anime-list-item.component.css',
 })
 export class AnimeListItemComponent {
+
+    constructor(public listService: List) {}
+
     @Input ({required: true}) data!: ListItem;
+
+
 }

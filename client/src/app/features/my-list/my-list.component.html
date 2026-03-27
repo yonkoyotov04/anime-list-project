@@ -4,8 +4,8 @@
         <h2 class="list-section__title">Currently Watching</h2>
         <section class="list-section">
 
-        @if(watching()!.length > 0) {
-            @for(data of watching(); track data) {
+        @if(listService.watching()!.length > 0) {
+            @for(data of listService.watching(); track data) {
                 <app-anime-list-item [data]="data" />
             }
         } @else {
@@ -17,8 +17,8 @@
         <h2 class="list-section__title">Completed</h2>
         <section class="list-section">
             
-        @if(completed()!.length > 0) {
-            @for(data of completed(); track data) {
+        @if(listService.completed()!.length > 0) {
+            @for(data of listService.completed(); track data) {
                 <app-anime-list-item [data]="data" />
             }
         } @else {
@@ -30,8 +30,8 @@
         <h2 class="list-section__title">Dropped</h2>
         <section class="list-section">
 
-        @if(dropped()!.length > 0) {
-            @for(data of dropped(); track data) {
+        @if(listService.dropped()!.length > 0) {
+            @for(data of listService.dropped(); track data) {
                 <app-anime-list-item [data]="data" />
             }
         } @else {
