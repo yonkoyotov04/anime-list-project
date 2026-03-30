@@ -133,3 +133,31 @@
 .btn-secondary:hover {
     background: #111827;
 }
+
+.btn-edit {
+    background: #059669;
+    color: white;
+    width: 125px;
+}
+
+.btn-edit:hover {
+    background: #046244;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+    width: 125px;
+}
+
+.btn-delete:hover {
+    background: #8e1414;
+}
+
+.authorized__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+}

@@ -43,12 +43,12 @@
 
             <button (click)="handleWatched()" class="btn btn-secondary">
                 @if (!isWatched()) {
-                    ▶️ Add to List
-                } 
-                @else {
-                    ❌ Remove from List
+                ▶️ Add to List
                 }
-                
+                @else {
+                ❌ Remove from List
+                }
+
             </button>
         </div>
 
@@ -90,5 +90,19 @@
 
         </div>
 
+        @if(currentAnime()?.ownerId === userId()) {
+        <div class="authorized__actions">
+            <button class="btn btn-edit">
+                Edit
+            </button>
+            <button (click)="showDeleteBox()" class="btn btn-delete">
+                Delete
+            </button>
+        </div>
+        }
     </div>
+    @if (deleteBox()) {
+        <app-delete-prompt [deleteFunc]="() => delete(currentAnime()!._id)" (cancel)="hideDeleteBox()" />
+    }
+
 </main>

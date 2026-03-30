@@ -1,0 +1,13 @@
+<div class="deletePrompt">
+    <div class="delete_box">
+        <h2 class="delete_title">Delete Item</h2>
+        <p class="delete_text">
+            Are you sure you want to delete this? This action cannot be undone.
+        </p>
+
+        <div class="delete_actions">
+            <a (click)="onCancel()" class="btn btn-cancel">Cancel</a>
+            <a (click)="deleteFunc()" class="btn btn-confirm">Delete</a>
+        </div>
+    </div>
+</div>

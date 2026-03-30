@@ -14,7 +14,21 @@ export class Api {
 
     animes = this._animes.asReadonly();
 
-    constructor(private http: HttpClient, private authService: Auth) {}
+    private getHeaders(method?: string) {
+        if (method === 'post' || method === 'put') {
+            return new HttpHeaders({
+                'Content-Type': 'application/json',
+                'X-Authorization': this.authService.user()?.accessToken
+            })
+        }
+
+        return new HttpHeaders({
+            'X-Authorization': this.authService.user()?.accessToken
+        })
+
+    }
+
+    constructor(private http: HttpClient, private authService: Auth) { }
 
     getAnime(): Observable<Anime[]> {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/`);
@@ -25,12 +39,7 @@ export class Api {
     }
 
     postAnime(animeData: any): Observable<Anime> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'X-Authorization': this.authService.user()?.accessToken
-        })
-
-        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers, withCredentials: true });
+        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers: this.getHeaders(), withCredentials: true });
     }
 
     getOwnerStatus(id: string): Observable<boolean> {
@@ -43,5 +52,9 @@ export class Api {
 
     getReviewsForUser(id: string): Observable<Review[]> {
         return this.http.get<Review[]>(`${this.apiUrl}/review/user/${id}`);
+    }
+
+    deleteAnime(id: string): Observable<void> {
+        return this.http.delete <void>(`${this.apiUrl}/anime/${id}`, { headers: this.getHeaders(), withCredentials: true });
     }
 }

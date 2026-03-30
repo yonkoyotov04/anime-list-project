@@ -44,10 +44,7 @@ export class Auth {
     }
 
     getUserData(id?: string) {
-        const headers = new HttpHeaders({
-            'X-Authorization': this._user()?.accessToken
-        })
-        return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { headers, withCredentials: true })
+        return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { headers: this.getHeaders(), withCredentials: true })
     }
 
     getToken() {
