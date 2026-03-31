@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { Auth } from '../../core/services/auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { Auth } from '../../core/services/auth.service';
   styleUrl: './header.component.css',
 })
 export class Header {
-    constructor(private authService: Auth) {}
+    constructor(private authService: Auth, private router: Router) {}
 
     isAuthenticated() {
         return this.authService.isAuthenticated();
@@ -17,5 +17,6 @@ export class Header {
 
     logout() {
         this.authService.logout();
+        this.router.navigateByUrl('/');
     }
 }

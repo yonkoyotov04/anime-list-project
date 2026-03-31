@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register',
@@ -11,7 +12,7 @@ import { Auth } from '../../core/services/auth.service';
 export class RegisterComponent {
     private formBuilder = inject(FormBuilder);
 
-    constructor(private authService: Auth) {}
+    constructor(private authService: Auth, private router: Router) {}
 
     registerForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(30)]],
@@ -55,6 +56,7 @@ export class RegisterComponent {
         this.authService.register({...this.registerForm.value}).subscribe({
             next: (user) => {
                 this.authService.setUser(user);
+                this.router.navigateByUrl('/');
             },
 
             error: (error) => {

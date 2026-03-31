@@ -102,7 +102,7 @@
         }
     </div>
     @if (deleteBox()) {
-        <app-delete-prompt [deleteFunc]="() => delete(currentAnime()!._id)" (cancel)="hideDeleteBox()" />
+        <app-delete-prompt [deleteFunc]="() => delete(currentAnime()!._id)" [itemType]="'anime'" (cancel)="hideDeleteBox()" />
     }
 
 </main>

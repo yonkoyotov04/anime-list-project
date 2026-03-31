@@ -50,7 +50,6 @@ export class AnimeDetailsComponent implements OnInit {
 
     showDeleteBox() {
         this.deleteBox.set(true);
-        console.log(this.deleteBox())
     }
 
     hideDeleteBox() {

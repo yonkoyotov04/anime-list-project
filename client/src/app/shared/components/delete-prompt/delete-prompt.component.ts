@@ -7,7 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrl: './delete-prompt.component.css',
 })
 export class DeletePromptComponent {
-    @Input({ }) deleteFunc!: () => void
+    @Input({required: true}) deleteFunc!: () => void
+    @Input() itemType!: string
 
     @Output() cancel = new EventEmitter<void>();
 

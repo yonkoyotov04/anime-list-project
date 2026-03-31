@@ -62,7 +62,10 @@ export class Auth {
         this._user.set(null);
         this.isAuthenticated.set(false);
         localStorage.removeItem('user');
+    }
 
+    deleteUser(userId: string): Observable<void> {
+        return this.http.delete <void>(`${this.apiUrl}/${userId}`, {headers: this.getHeaders(), withCredentials: true});
     }
 
     getAnimeList(userId?: string) {
