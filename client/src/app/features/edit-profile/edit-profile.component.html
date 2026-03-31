@@ -47,7 +47,7 @@
                 <div class="form-actions">
                     <button type="submit" class="ui-btn ui-btn--primary"
                         [disabled]="editForm.invalid">Edit Profile</button>
-                    <button type="button" class="ui-btn ui-btn--secondary">Cancel</button>
+                    <button (click)="cancel()" type="button" class="ui-btn ui-btn--secondary">Cancel</button>
                 </div>
 
             </form>

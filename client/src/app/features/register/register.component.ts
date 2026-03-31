@@ -64,4 +64,8 @@ export class RegisterComponent {
             }
         })
     }
+
+    cancel(): void {
+        this.router.navigateByUrl('/');
+    }
 }

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
     formBuilder = inject(FormBuilder);
 
-    constructor(private authService: Auth, private router: Router) {}
+    constructor(private authService: Auth, private router: Router) { }
 
     loginForm = this.formBuilder.group({
         email: ['', [Validators.required]],
@@ -33,7 +33,7 @@ export class LoginComponent {
             return;
         }
 
-        this.authService.login({...this.loginForm.value}).subscribe({
+        this.authService.login({ ...this.loginForm.value }).subscribe({
             next: (user) => {
                 this.authService.setUser(user);
                 this.router.navigateByUrl('/');
@@ -45,5 +45,7 @@ export class LoginComponent {
         })
     }
 
-
+    cancel(): void {
+        this.router.navigateByUrl('/');
+    }
 }
