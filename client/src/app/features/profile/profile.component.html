@@ -14,7 +14,7 @@
                 </p>
 
                 <div class="profile-card__actions">
-                    <button class="ui-btn ui-btn--primary">Edit Profile</button>
+                    <button [routerLink]="['/profile/edit']" class="ui-btn ui-btn--primary">Edit Profile</button>
                     <button (click)="showDeleteBox()" class="ui-btn ui-btn--danger">Delete Profile</button>
                     <button [routerLink]="['/list']" class="ui-btn ui-btn--secondary">View Anime List</button>
                 </div>

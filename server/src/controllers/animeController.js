@@ -87,7 +87,12 @@ animeController.put('/:animeId', isAuth, async (req, res) => {
             throw new Error('Only the owner and admin can edit!')
         }
 
-        const editedAnime = await animeService.editAnime(animeId, newData);
+        const editedAnime = await animeService.editAnime(animeId, {
+            currentlyWatched: anime.currentlyWathced,
+            completed: anime.completed,
+            dropped: anime.dropped,
+            ownerId: anime.ownerId,
+             ...newData});
         res.status(201).json(editedAnime ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);

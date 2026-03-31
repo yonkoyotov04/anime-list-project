@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../core/services/api.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Anime } from '../../shared/interfaces/anime';
 
 @Component({
     selector: 'app-add-anime',
@@ -9,8 +10,12 @@ import { Router } from '@angular/router';
     templateUrl: './add-anime.component.html',
     styleUrl: './add-anime.component.css',
 })
-export class AddAnimeComponent {
+export class AddAnimeComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
+    private activatedRoute = inject(ActivatedRoute);
+
+    animeId = signal<string|null>(null);
+    editMode = signal<boolean>(false);
 
     constructor(private apiService: Api, private router: Router) {}
 
@@ -57,6 +62,18 @@ export class AddAnimeComponent {
         return this.animeForm.get('imageUrl');
     }
 
+    ngOnInit(): void {
+        const id = this.activatedRoute.snapshot.params['animeId'];
+
+        if (id) {
+            this.editMode.set(true);
+            this.animeId.set(id);
+            this.apiService.getSpecificAnime(id).subscribe((anime) => {
+                this.animeForm.patchValue(anime);
+            })
+        }
+    }
+
     onSubmit(): void {
         if (this.animeForm.invalid) {
             this.animeForm.markAllAsTouched();
@@ -72,5 +89,27 @@ export class AddAnimeComponent {
                 console.error(error);
             }
         })
+    }
+
+    edit(): void {
+        if (this.animeForm.invalid) {
+            this.animeForm.markAllAsTouched();
+            return;
+        }
+
+        this.apiService.editAnime(this.animeId()!, {...this.animeForm.value}).subscribe({
+            next: () => {
+                this.router.navigateByUrl(`/details/${this.animeId()}`);
+            }
+        })
+    }
+
+    cancel(): void {
+        if(this.editMode()) {
+            this.router.navigate(['/details', this.animeId()])
+        } else {
+            this.router.navigateByUrl('/catalogue');
+        }
+        
     }
 }

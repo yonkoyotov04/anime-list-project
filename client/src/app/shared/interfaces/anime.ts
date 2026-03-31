@@ -3,7 +3,7 @@ export interface Anime {
     title: string,
     author: string,
     producedBy: string,
-    genres: [],
+    genres: string,
     startDate: string,
     endDate: string,
     description: string,

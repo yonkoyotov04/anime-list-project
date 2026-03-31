@@ -12,7 +12,14 @@ export class Auth {
     isAuthenticated = signal<boolean | null>(null);
     user = this._user.asReadonly();
 
-    private getHeaders() {
+    private getHeaders(method?: string) {
+        if (method === 'post' || method === 'put') {
+            return new HttpHeaders({
+                'Content-type': 'application/json',
+                'X-Authorization': this.user()?.accessToken
+            })
+        }
+
         return new HttpHeaders({
             'X-Authorization': this.user()?.accessToken
         })
@@ -64,8 +71,12 @@ export class Auth {
         localStorage.removeItem('user');
     }
 
+    editUser(newData: any) {
+        return this.http.put<User>(`${this.apiUrl}/${this.user()?._id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
+    }
+
     deleteUser(userId: string): Observable<void> {
-        return this.http.delete <void>(`${this.apiUrl}/${userId}`, {headers: this.getHeaders(), withCredentials: true});
+        return this.http.delete<void>(`${this.apiUrl}/${userId}`, { headers: this.getHeaders(), withCredentials: true });
     }
 
     getAnimeList(userId?: string) {

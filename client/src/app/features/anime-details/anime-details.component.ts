@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { Api } from '../../core/services/api.service';
 import { Anime } from '../../shared/interfaces/anime';
 import { Auth } from '../../core/services/auth.service';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-anime-details',
-    imports: [DeletePromptComponent, CommonModule],
+    imports: [DeletePromptComponent, CommonModule, RouterLink, RouterModule],
     templateUrl: './anime-details.component.html',
     styleUrl: './anime-details.component.css',
 })

@@ -91,6 +91,7 @@ userController.get('/:userId', isAuth, async (req, res) => {
 
 userController.put('/:userId', isAuth, async (req, res) => {
     const userId = req.params.userId;
+    const userData = await userService.getUserData(userId);
     let newData = req.body;
 
     newData['username'] = newData.username.trim();
@@ -98,8 +99,12 @@ userController.put('/:userId', isAuth, async (req, res) => {
     newData['profilePic'] = newData.profilePic.trim();
 
     try {
-        await userService.editProfile(userId, newData);
-        res.status(201).end();
+        const editedUser = await userService.editProfile(userId, {
+            email: userData.email,
+            password: userData.password,
+            animeList: userData.animeList,
+            ...newData});
+        res.status(201).json(editedUser ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
         res.status(401).end();

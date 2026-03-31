@@ -10,6 +10,7 @@ import { MyListComponent } from './features/my-list/my-list.component';
 import { AddAnimeComponent } from './features/add-anime/add-anime.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard, guestGuard } from './core/guards/routeGuard';
+import { EditProfileComponent } from './features/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -18,8 +19,10 @@ export const routes: Routes = [
     {path: 'catalogue', component: CatalogueComponent},
     {path: 'about', component: AboutComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
+    {path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard]},
     {path: 'details/:animeId', component: AnimeDetailsComponent},
     {path: 'list', component: MyListComponent, canActivate: [authGuard]},
     {path: 'create', component: AddAnimeComponent, canActivate: [authGuard]},
+    {path: 'edit/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent}
 ];

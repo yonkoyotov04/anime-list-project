@@ -54,6 +54,10 @@ export class Api {
         return this.http.get<Review[]>(`${this.apiUrl}/review/user/${id}`);
     }
 
+    editAnime(id: string, newData: any): Observable<Anime> {
+        return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true});
+    }
+
     deleteAnime(id: string): Observable<void> {
         return this.http.delete <void>(`${this.apiUrl}/anime/${id}`, { headers: this.getHeaders(), withCredentials: true });
     }

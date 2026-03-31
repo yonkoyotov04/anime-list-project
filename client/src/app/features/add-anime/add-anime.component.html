@@ -2,9 +2,16 @@
     <div class="page-form__container">
 
         <div class="form-card">
-            <h1 class="form-card__title">Add New Anime</h1>
+            <h1 class="form-card__title">
+                @if(editMode()) {
+                    Edit Anime
+                } 
+                @else {
+                    Add New Anime
+                }
+            </h1>
 
-            <form class="form" [formGroup]="animeForm" (ngSubmit)="onSubmit()">
+            <form class="form" [formGroup]="animeForm" (ngSubmit)="editMode() ? edit() : onSubmit()">
 
                 <div class="form-group">
                     <label class="form-group__label">Title</label>
@@ -146,8 +153,16 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="ui-btn ui-btn--primary">Add Anime</button>
-                    <button type="button" class="ui-btn ui-btn--secondary">Cancel</button>
+                    <button type="submit" class="ui-btn ui-btn--primary">
+                        @if(editMode()) {
+                            Edit Anime
+                        }
+                        @else {
+                            Add Anime
+                        }
+                       
+                    </button>
+                    <button (click)="cancel()" type="button" class="ui-btn ui-btn--secondary">Cancel</button>
                 </div>
 
             </form>

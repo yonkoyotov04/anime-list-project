@@ -92,7 +92,7 @@
 
         @if(currentAnime()?.ownerId === userId()) {
         <div class="authorized__actions">
-            <button class="btn btn-edit">
+            <button [routerLink]="['/edit', currentAnime()?._id]" class="btn btn-edit">
                 Edit
             </button>
             <button (click)="showDeleteBox()" class="btn btn-delete">

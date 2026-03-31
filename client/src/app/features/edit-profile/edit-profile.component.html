@@ -1,0 +1,57 @@
+<main class="page-auth">
+    <div class="page-auth__container">
+
+        <div class="form-card">
+            <h1 class="form-card__title">Edit Profile</h1>
+
+            <form class="form" [formGroup]="editForm" (ngSubmit)="edit()">
+
+                <div class="form-group">
+                    <label class="form-group__label">Username</label>
+                    <input type="text" name="username" class="form-group__input" formControlName="username"
+                        minlength="3" maxlength="30" />
+
+                    @if (usernameControl?.invalid && usernameControl?.touched) {
+                    <div class="input-error">
+                        @if (usernameControl?.errors?.['required']) {
+                        A username is required!
+                        }
+                        @if (usernameControl?.errors?.['minLength']) {
+                        Your username is too short!
+                        }
+                        @if (usernameControl?.errors?.['maxLength']) {
+                        Your username is too long!
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label">Profile Picture</label>
+                    <input type="text" name="profilePic" class="form-group__input" formControlName="profilePic" />
+
+                    @if (profilePicControl?.invalid && profilePicControl?.touched) {
+                    <div class="input-error">
+                        @if (profilePicControl?.errors?.['pattern']) {
+                        The image url is invalid!
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label">Bio</label>
+                    <textarea name="bio" class="form-group__textarea" formControlName="bio"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="ui-btn ui-btn--primary"
+                        [disabled]="editForm.invalid">Edit Profile</button>
+                    <button type="button" class="ui-btn ui-btn--secondary">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</main>
