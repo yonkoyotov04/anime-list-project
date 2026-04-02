@@ -39,7 +39,11 @@ export class Api {
     }
 
     postAnime(animeData: any): Observable<Anime> {
-        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers: this.getHeaders(), withCredentials: true });
+        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers: this.getHeaders('post'), withCredentials: true });
+    }
+
+    postReview(animeId: string, reviewData: any): Observable<Review> {
+        return this.http.post<Review>(`${this.apiUrl}/review/${animeId}`, reviewData, {headers: this.getHeaders('post'), withCredentials: true});
     }
 
     getOwnerStatus(id: string): Observable<boolean> {

@@ -1,0 +1,57 @@
+<main class="page-form">
+    <div class="page-form__container">
+
+        <div class="form-card">
+            <h1 class="form-card__title">
+                Leave a Review
+            </h1>
+
+            <form class="form" [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                    <label class="form-group__label">Comment</label>
+                    <textarea class="form-group__input" minlength="5" formControlName="comment"></textarea>
+
+                    @if (commentControl?.invalid && commentControl?.touched) {
+                    <div class="input-error">
+                        @if (commentControl?.errors?.['required']) {
+                        A comment is required!
+                        }
+                        @if (commentControl?.errors?.['minLength']) {
+                        The comment is too short!
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-group__label">Rating</label>
+                    <input type="number" class="form-group__input" min="1" max="10" formControlName="rating" />
+
+                    @if (ratingControl?.invalid && ratingControl?.touched) {
+                    <div class="input-error">
+                        @if (ratingControl?.errors?.['required']) {
+                        An author is required!
+                        }
+                        @if (ratingControl?.errors?.['min']) {
+                        The rating cannot be lower than 1
+                        }
+                        @if (ratingControl?.errors?.['max']) {
+                        The rating cannot be higher than 10
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="ui-btn ui-btn--primary">
+                        Post
+                    </button>
+                    <button (click)="cancel()" type="button" class="ui-btn ui-btn--secondary">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</main>

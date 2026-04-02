@@ -60,7 +60,7 @@ reviewController.get('/:animeId/status', isAuth, async (req, res) => {
 reviewController.post('/:animeId', isAuth, async (req, res) => {
     const animeId = req.params.animeId;
     const userId = req.user?.id;
-    const reviewData = req.body;
+    let reviewData = req.body;
 
     const exists = await Review.findOne({anime: animeId, user: userId});
 

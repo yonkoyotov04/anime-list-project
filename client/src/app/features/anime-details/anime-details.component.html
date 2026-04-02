@@ -37,7 +37,7 @@
         </div>
 
         <div class="anime-actions">
-            <button class="btn btn-primary">
+            <button [routerLink]="['/review', this.currentAnime()?._id]" class="btn btn-primary">
                 ⭐ Leave Review
             </button>
 

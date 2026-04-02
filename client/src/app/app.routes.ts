@@ -11,6 +11,7 @@ import { AddAnimeComponent } from './features/add-anime/add-anime.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard, guestGuard } from './core/guards/routeGuard';
 import { EditProfileComponent } from './features/edit-profile/edit-profile.component';
+import { AddReviewComponent } from './features/add-review/add-review.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -24,5 +25,6 @@ export const routes: Routes = [
     {path: 'list', component: MyListComponent, canActivate: [authGuard]},
     {path: 'create', component: AddAnimeComponent, canActivate: [authGuard]},
     {path: 'edit/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
+    {path: 'review/:animeId', component: AddReviewComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent}
 ];
