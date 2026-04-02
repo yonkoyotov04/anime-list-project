@@ -37,14 +37,16 @@
         </div>
 
         <div class="anime-actions">
-            <button [routerLink]="['/review', this.currentAnime()?._id]" [disabled]="hasLeftReview()" class="btn btn-primary">
+            <button [routerLink]="hasLeftReview() ? '' : ['/review', this.currentAnime()?._id]"
+                [disabled]="hasLeftReview()" [style.cursor]="hasLeftReview() ? 'default' : 'pointer'"
+                class="btn btn-primary">
                 @if(!hasLeftReview()) {
-                    ⭐ Leave Review
+                ⭐ Leave Review
                 }
                 @else {
-                    You've already left a review
+                You've already left a review
                 }
-                
+
             </button>
 
             <button (click)="handleWatched()" class="btn btn-secondary">
@@ -61,9 +63,15 @@
         <h2 class="reviews-section__title">Reviews</h2>
         <div class="reviews-section">
 
-        @for(review of reviews(); track review._id) {
-            <app-review-item [review] = 'review' />
-        }
+            @if (reviews()!.length > 0) {
+                @for(review of reviews(); track review._id) {
+                <app-review-item [review]='review' />
+                }
+            }
+            @else {
+                <h2 class="no-reviews-message">No reviews have been left for this anime yet.</h2>
+            }
+
 
         </div>
 
@@ -79,7 +87,8 @@
         }
     </div>
     @if (deleteBox()) {
-        <app-delete-prompt [deleteFunc]="() => delete(currentAnime()!._id)" [itemType]="'anime'" (cancel)="hideDeleteBox()" />
+    <app-delete-prompt [deleteFunc]="() => delete(currentAnime()!._id)" [itemType]="'anime'"
+        (cancel)="hideDeleteBox()" />
     }
 
 </main>

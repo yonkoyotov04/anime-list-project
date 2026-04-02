@@ -110,12 +110,12 @@ export default {
 
     async addAnimeToWatched(userId, animeId) {
         await User.findOneAndUpdate({_id: userId, 'animeList.anime': {$ne: animeId}}, {$push: {animeList: {anime: animeId, status: "Watching"}}});
-        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: 1}}, {runValidators: true, returnDocument: true});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWatched: 1}}, {runValidators: true, returnDocument: true});
     },
 
     async removeAnimeFromList(userId, animeId) {
         await User.findOneAndUpdate({_id: userId}, {$pull: {animeList: {anime: animeId}}});
-        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWathced: -1}}, {runValidators: true, returnDocument: true});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {currentlyWatched: -1}}, {runValidators: true, returnDocument: true});
     },
 
     async completeAnime(userId, animeId) {

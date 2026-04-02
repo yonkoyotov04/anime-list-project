@@ -42,17 +42,21 @@ export class AnimeDetailsComponent implements OnInit {
             this.reviews.set(reviews);
             this.hasLeftReview.set(reviews.some(review => review.user._id.toString() === this.userId()));
         })
+
+        
     }
 
     handleWatched(): void {
         if (this.isWatched()) {
             this.authService.removeAnimeFromList(this.animeId).subscribe(() => {
                 this.isWatched.set(false);
+                this.currentAnime.update(anime => ({...anime!, currentlyWatched: anime!.currentlyWatched - 1}))
             })
 
         } else {
             this.authService.addAnimeToList(this.animeId).subscribe(() => {
                 this.isWatched.set(true);
+                this.currentAnime.update(anime => ({...anime!, currentlyWatched: anime!.currentlyWatched + 1}))
             })
         }
     }

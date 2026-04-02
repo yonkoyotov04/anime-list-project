@@ -9,9 +9,10 @@ import { AnimeDetailsComponent } from './features/anime-details/anime-details.co
 import { MyListComponent } from './features/my-list/my-list.component';
 import { AddAnimeComponent } from './features/add-anime/add-anime.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
-import { authGuard, guestGuard } from './core/guards/routeGuard';
 import { EditProfileComponent } from './features/edit-profile/edit-profile.component';
 import { AddReviewComponent } from './features/add-review/add-review.component';
+import guestGuard from './core/guards/guestGuard';
+import authGuard from './core/guards/authGuard';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
