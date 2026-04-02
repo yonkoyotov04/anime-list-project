@@ -37,8 +37,14 @@
         </div>
 
         <div class="anime-actions">
-            <button [routerLink]="['/review', this.currentAnime()?._id]" class="btn btn-primary">
-                ⭐ Leave Review
+            <button [routerLink]="['/review', this.currentAnime()?._id]" [disabled]="hasLeftReview()" class="btn btn-primary">
+                @if(!hasLeftReview()) {
+                    ⭐ Leave Review
+                }
+                @else {
+                    You've already left a review
+                }
+                
             </button>
 
             <button (click)="handleWatched()" class="btn btn-secondary">
@@ -52,41 +58,12 @@
             </button>
         </div>
 
+        <h2 class="reviews-section__title">Reviews</h2>
         <div class="reviews-section">
 
-            <h2 class="reviews-section__title">Reviews</h2>
-
-            <div class="review-item">
-
-                <div class="review-item__header">
-                    <img src="https://i.pinimg.com/474x/fa/d5/e7/fad5e79954583ad50ccb3f16ee64f66d.jpg"
-                        class="review-item__avatar" />
-                    <span class="review-item__username">AnimeFan99</span>
-                    <span class="review-item__rating">⭐ 9/10</span>
-                </div>
-
-                <p class="review-item__text">
-                    Absolutely incredible storytelling and character development.
-                    The final season was intense and emotional.
-                </p>
-
-            </div>
-
-            <div class="review-item">
-
-                <div class="review-item__header">
-                    <img src="https://wallpapers.com/images/high/anime-profile-picture-jioug7q8n43yhlwn.jpg"
-                        class="review-item__avatar" />
-                    <span class="review-item__username">OtakuMaster</span>
-                    <span class="review-item__rating">⭐ 8/10</span>
-                </div>
-
-                <p class="review-item__text">
-                    Great anime overall, though pacing felt a bit slow at times.
-                    Still highly recommended!
-                </p>
-
-            </div>
+        @for(review of reviews(); track review._id) {
+            <app-review-item [review] = 'review' />
+        }
 
         </div>
 

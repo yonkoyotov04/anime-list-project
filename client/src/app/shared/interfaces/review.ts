@@ -1,12 +1,12 @@
 export interface Review {
     _id: string,
     anime: {
-        id: string,
+        _id: string,
         title: string,
         imageUrl: string
     },
     user: {
-        id: string,
+        _id: string,
         username: string,
         profilePic: string
     },

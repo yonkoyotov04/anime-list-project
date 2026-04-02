@@ -50,12 +50,12 @@ export class Api {
         return this.http.get<boolean>(`${this.apiUrl}/anime/${id}/status`);
     }
 
-    getReviewsForAnime(id: string): Observable<Review[]> {
-        return this.http.get<Review[]>(`${this.apiUrl}/review/anime/${id}`);
+    getReviewsForAnime(animeId: string): Observable<Review[]> {
+        return this.http.get<Review[]>(`${this.apiUrl}/review/anime/${animeId}`);
     }
 
-    getReviewsForUser(id: string): Observable<Review[]> {
-        return this.http.get<Review[]>(`${this.apiUrl}/review/user/${id}`);
+    getReviewsForUser(userId: string): Observable<Review[]> {
+        return this.http.get<Review[]>(`${this.apiUrl}/review/user/${userId}`);
     }
 
     editAnime(id: string, newData: any): Observable<Anime> {
