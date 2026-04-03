@@ -15,9 +15,10 @@ import { ReviewItemComponent } from '../../shared/components/review-item/review-
 })
 export class ProfileComponent implements OnInit {
     user = signal<User|null>(null);
-    
     deleteBox = signal<boolean>(false);
-    reviews = signal<Review[]|null>(null);
+    deletedItemType = signal<string | null>(null);
+    deletedItemId = signal<string | null>(null);
+    reviews = signal<Review[]>([]);
 
     constructor(private authService: Auth, private apiService: Api, private router: Router) {}
 
@@ -33,12 +34,18 @@ export class ProfileComponent implements OnInit {
         })
     }
 
-    showDeleteBox() {
+    showDeleteBox(type: string, id?: string) {
         this.deleteBox.set(true);
+        this.deletedItemType.set(type)
+        
+        if (id) {
+            this.deletedItemId.set(id);
+        }
     }
 
     hideDeleteBox() {
         this.deleteBox.set(false);
+        this.deletedItemType.set(null);
     }
 
     delete(userId: string) {
@@ -46,6 +53,13 @@ export class ProfileComponent implements OnInit {
             this.authService.logout();
             this.router.navigateByUrl('/');
         });
+    }
+
+    deleteReview(reviewId: string) {
+        this.apiService.deleteReview(reviewId).subscribe(() => {
+            this.reviews.update((reviews) => reviews!.filter(review => review._id !== reviewId));
+            this.deleteBox.set(false);
+        })
     }
     
 }

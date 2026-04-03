@@ -11,7 +11,7 @@ import { AnimeItemComponent } from '../../shared/components/anime-item/anime-ite
     styleUrl: './catalogue.component.css',
 })
 export class CatalogueComponent implements OnInit {
-    animes = signal<Anime[]|null>(null);
+    animes = signal<Anime[]>([]);
 
     constructor(private apiService: Api) { }
 

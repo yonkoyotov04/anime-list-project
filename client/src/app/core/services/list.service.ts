@@ -8,7 +8,7 @@ import { ListItem } from '../../shared/interfaces/list-item';
 })
 export class List {
 
-    allAnimes = signal<ListItem[] | null>(null)
+    allAnimes = signal<ListItem[]>([]);
 
     watching = computed(() => { return this.allAnimes()?.filter(item => item.status === 'Watching') });
     completed = computed(() => { return this.allAnimes()?.filter(item => item.status === 'Completed') });

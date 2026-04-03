@@ -17,6 +17,8 @@ export class AddReviewComponent implements OnInit {
     constructor(private apiService: Api, private authService: Auth, private router: Router) {}
 
     animeId = signal<string | null>(null);
+    reviewId = signal<string | null>(null);
+    editMode = signal<boolean>(false);
 
     reviewForm = this.formBuilder.group({
         comment: ['', [Validators.required, Validators.minLength(5)]],
@@ -32,8 +34,18 @@ export class AddReviewComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const animeId = this.activatedRoute.snapshot.params['animeId']
+        const animeId = this.activatedRoute.snapshot.params['animeId'];
         this.animeId.set(animeId);
+
+        const reviewId =  this.activatedRoute.snapshot.params['reviewId'];
+
+        if (reviewId) {
+            this.editMode.set(true);
+            this.reviewId.set(reviewId);
+            this.apiService.getSpecificReview(reviewId).subscribe((review) => {
+                this.reviewForm.patchValue(review);
+            })
+        }
     }
 
     onSubmit() {
@@ -45,6 +57,23 @@ export class AddReviewComponent implements OnInit {
         this.apiService.postReview(this.animeId()!, {...this.reviewForm.value}).subscribe({
             next: () => {
                 this.router.navigate(['/details', this.animeId()]);
+            },
+
+            error: (error) => {
+                console.error(error);
+            }
+        })
+    }
+
+    edit() {
+        if (this.reviewForm.invalid) {
+            this.reviewForm.markAllAsTouched();
+            return;
+        }
+
+        this.apiService.editReview(this.reviewId()!, {...this.reviewForm.value}).subscribe({
+            next: () => {
+                this.router.navigateByUrl('/profile');
             },
 
             error: (error) => {

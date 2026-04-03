@@ -49,7 +49,7 @@ reviewController.get('/:animeId/status', isAuth, async (req, res) => {
 
     let hasLeftReview = false;
 
-    const exists = await Review.findOne({anime, user})
+    const exists = await Review.findOne({ anime, user })
 
     if (exists) {
         hasLeftReview = true;
@@ -63,22 +63,26 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
     const userId = req.user?.id;
     let reviewData = req.body;
 
-    const exists = await Review.findOne({anime: animeId, user: userId});
+    const exists = await Review.findOne({ anime: animeId, user: userId });
 
     if (exists) {
         res.statusMessage = "You've already left a review!";
         res.status(400).end();
     }
 
-    const anime = await animeService.getOneAnime(animeId);
+    const animeRating = await animeService.getCurrentRating(animeId);
     const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
 
     try {
-        const newRating = ((anime.rating * reviewCount) + reviewData.rating) / (reviewCount + 1);
+        let newRating = ((animeRating * reviewCount) + reviewData.rating) / (reviewCount + 1);
 
-        reviewData = {anime: animeId, user: userId, ...reviewData};
+        if (newRating > 10) {
+            newRating = 10;
+        }
+
+        reviewData = { anime: animeId, user: userId, ...reviewData };
         const review = await reviewService.reviewAnime(reviewData);
-        
+
         await animeService.updateRating(animeId, newRating);
 
         res.status(201).json(review ?? {});
@@ -91,12 +95,25 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
 reviewController.put('/:reviewId', isAuth, async (req, res) => {
     const reviewId = req.params.reviewId;
     const userId = req.user?.id;
-    const animeId = await reviewService.getReviewById(reviewId).anime;
-    const newReviewData = req.body;
+    const currentReview = await reviewService.getReviewById(reviewId);
+    const animeId = currentReview.anime;
+    let newReviewData = req.body;
+
+    const animeRating = await animeService.getCurrentRating(animeId);
+    const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
 
     try {
-        newReviewData = {anime: animeId, user: userId, ...newReviewData};
+        const newRating = (animeRating * reviewCount - currentReview.rating + newReviewData.rating) / reviewCount;
+
+        if (newRating > 10) {
+            newRating = 10;
+        }
+
+        newReviewData = { anime: animeId, user: userId, ...newReviewData };
         const newReview = await reviewService.editReview(reviewId, newReviewData);
+
+        await animeService.updateRating(currentReview.anime, newRating);
+
         res.status(201).json(newReview ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
@@ -106,18 +123,23 @@ reviewController.put('/:reviewId', isAuth, async (req, res) => {
 
 reviewController.delete('/:reviewId', isAuth, async (req, res) => {
     const reviewId = req.params.reviewId;
-
     const review = await reviewService.getReviewById(reviewId);
     const animeId = review.anime;
-    const anime = await animeService.getOneAnime(animeId);
+
+    const animeRating = await animeService.getCurrentRating(animeId);
     const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
 
     try {
-        const newRating = ((anime.rating * reviewCount) - review.rating) / (reviewCount - 1);
+        const newRatingTotal = animeRating * reviewCount - review.rating;
+        let newRating = 0;
+
+        if (newRatingTotal > 0) {
+            newRating = newRatingTotal / (reviewCount - 1)
+        }
 
         await reviewService.deleteReview(reviewId);
         await animeService.updateRating(animeId, newRating);
-        
+
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);

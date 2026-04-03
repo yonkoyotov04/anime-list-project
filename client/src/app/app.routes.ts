@@ -25,7 +25,8 @@ export const routes: Routes = [
     {path: 'details/:animeId', component: AnimeDetailsComponent},
     {path: 'list', component: MyListComponent, canActivate: [authGuard]},
     {path: 'create', component: AddAnimeComponent, canActivate: [authGuard]},
-    {path: 'edit/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
+    {path: 'edit/anime/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
     {path: 'review/:animeId', component: AddReviewComponent, canActivate: [authGuard]},
+    {path: 'edit/review/:reviewId', component: AddReviewComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent}
 ];

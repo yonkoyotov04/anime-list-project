@@ -58,11 +58,23 @@ export class Api {
         return this.http.get<Review[]>(`${this.apiUrl}/review/user/${userId}`);
     }
 
+    getSpecificReview(reviewId: string): Observable<Review> {
+        return this.http.get<Review>(`${this.apiUrl}/review/${reviewId}`, { headers: this.getHeaders(), withCredentials: true });
+    }
+
     editAnime(id: string, newData: any): Observable<Anime> {
-        return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true});
+        return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
+    }
+
+    editReview(id: string, newData: any): Observable<Review> {
+        return this.http.put<Review>(`${this.apiUrl}/review/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
     }
 
     deleteAnime(id: string): Observable<void> {
         return this.http.delete <void>(`${this.apiUrl}/anime/${id}`, { headers: this.getHeaders(), withCredentials: true });
+    }
+
+    deleteReview(id: string): Observable<void> {
+        return this.http.delete <void>(`${this.apiUrl}/review/${id}`, { headers: this.getHeaders(), withCredentials: true });
     }
 }

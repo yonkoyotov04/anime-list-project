@@ -35,6 +35,11 @@ export default {
         return Anime.findByIdAndUpdate(animeId, newData, {runValidators: true, new: true});
     },
 
+    async getCurrentRating(animeId) {
+        const anime = await Anime.findById(animeId).select({rating: true});
+        return anime.rating;
+    },
+
     updateRating(animeId, newRating) {
         return Anime.findByIdAndUpdate(animeId, {$set: {rating: newRating}}, {runValidators: true, new: true});
     },

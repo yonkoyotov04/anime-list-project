@@ -6,10 +6,10 @@
         <span class="review-item__username">{{inUserPage ? review.anime.title : review.user.username}}</span>
         @if (inUserPage) {
             <div class="review-item__actions">
-                <button class="ui-btn ui-btn--primary">
+                <button [routerLink]="['/edit/review', review._id]" class="ui-btn ui-btn--primary">
                     Edit
                 </button>
-                <button class="ui-btn ui-btn--danger">
+                <button (click)="onDeleteClick()" class="ui-btn ui-btn--danger">
                     Delete
                 </button>
             </div>

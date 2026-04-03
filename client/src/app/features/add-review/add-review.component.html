@@ -6,7 +6,7 @@
                 Leave a Review
             </h1>
 
-            <form class="form" [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+            <form class="form" [formGroup]="reviewForm" (ngSubmit)="editMode() ? edit() : onSubmit()">
 
                 <div class="form-group">
                     <label class="form-group__label">Comment</label>
@@ -45,7 +45,12 @@
 
                 <div class="form-actions">
                     <button type="submit" class="ui-btn ui-btn--primary">
-                        Post
+                        @if (editMode()) {
+                            Edit Review
+                        }
+                        @else {
+                            Post Review
+                        }
                     </button>
                     <button (click)="cancel()" type="button" class="ui-btn ui-btn--secondary">Cancel</button>
                 </div>

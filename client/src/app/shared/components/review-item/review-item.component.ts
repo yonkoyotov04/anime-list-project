@@ -1,13 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Review } from '../../interfaces/review';
+import { RouterLink, RouterModule } from "@angular/router";
 
 @Component({
     selector: 'app-review-item',
-    imports: [],
+    imports: [RouterLink, RouterModule],
     templateUrl: './review-item.component.html',
     styleUrl: './review-item.component.css',
 })
 export class ReviewItemComponent {
     @Input ({required: true}) review!: Review;
     @Input ({required: false}) inUserPage!: Boolean;
+
+    @Output() delete = new EventEmitter<string>();
+
+    onDeleteClick() {
+        this.delete.emit(this.review._id);
+    }
 }
