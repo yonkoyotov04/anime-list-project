@@ -39,6 +39,10 @@ const animeSchema = new Schema({
         required: [true, 'An image is required!'],
         match: [/^https?:\/\//, "ImageURL is invalid"]
     },
+    rating: {
+        type: Number,
+        default: 0
+    },
     currentlyWatched: {
         type: Number,
         default: 0

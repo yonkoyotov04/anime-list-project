@@ -1,5 +1,6 @@
 import { Router } from "express";
 import reviewService from "../services/reviewService.js";
+import animeService from '../services/animeService.js'
 import { getErrorMessage } from "../utils/errorUtil.js";
 import Review from "../models/Review.js";
 import { isAuth } from "../middlewares/authMiddleware.js";
@@ -69,9 +70,17 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
         res.status(400).end();
     }
 
+    const anime = await animeService.getOneAnime(animeId);
+    const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
+
     try {
+        const newRating = ((anime.rating * reviewCount) + reviewData.rating) / (reviewCount + 1);
+
         reviewData = {anime: animeId, user: userId, ...reviewData};
         const review = await reviewService.reviewAnime(reviewData);
+        
+        await animeService.updateRating(animeId, newRating);
+
         res.status(201).json(review ?? {});
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
@@ -98,8 +107,17 @@ reviewController.put('/:reviewId', isAuth, async (req, res) => {
 reviewController.delete('/:reviewId', isAuth, async (req, res) => {
     const reviewId = req.params.reviewId;
 
+    const review = await reviewService.getReviewById(reviewId);
+    const animeId = review.anime;
+    const anime = await animeService.getOneAnime(animeId);
+    const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
+
     try {
+        const newRating = ((anime.rating * reviewCount) - review.rating) / (reviewCount - 1);
+
         await reviewService.deleteReview(reviewId);
+        await animeService.updateRating(animeId, newRating);
+        
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);

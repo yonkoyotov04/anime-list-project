@@ -35,6 +35,10 @@ export default {
         return Anime.findByIdAndUpdate(animeId, newData, {runValidators: true, new: true});
     },
 
+    updateRating(animeId, newRating) {
+        return Anime.findByIdAndUpdate(animeId, {$set: {rating: newRating}}, {runValidators: true, new: true});
+    },
+
     deleteAnime(animeId) {
         return Anime.findByIdAndDelete(animeId);
     }

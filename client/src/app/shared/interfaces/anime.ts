@@ -8,6 +8,7 @@ export interface Anime {
     endDate: string,
     description: string,
     imageUrl: string,
+    rating: number,
     currentlyWatched: number,
     completed: number,
     dropped: number,

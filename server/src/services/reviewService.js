@@ -13,6 +13,10 @@ export default {
         return Review.find({anime: animeId}).populate({path: 'user', select: 'username profilePic'});
     },
 
+    getAnimeReviewsCount(animeId) {
+        return Review.countDocuments({anime: animeId});
+    },
+
     getUserReviews(userId) {
         return Review.find({user: userId}).populate({path: 'anime', select: 'title imageUrl'})
     },
