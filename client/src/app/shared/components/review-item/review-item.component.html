@@ -1,14 +1,28 @@
 <div class="review-item">
 
     <div class="review-item__header">
-        <img src={{review.user.profilePic}}
+        <img [src]="inUserPage ? review.anime.imageUrl : review.user.profilePic"
             class="review-item__avatar" />
-        <span class="review-item__username">{{review.user.username}}</span>
-        <span class="review-item__rating">⭐ {{review.rating}}/10</span>
+        <span class="review-item__username">{{inUserPage ? review.anime.title : review.user.username}}</span>
+        @if (inUserPage) {
+            <div class="review-item__actions">
+                <button class="ui-btn ui-btn--primary">
+                    Edit
+                </button>
+                <button class="ui-btn ui-btn--danger">
+                    Delete
+                </button>
+            </div>
+        }
+        
     </div>
 
     <p class="review-item__text">
         {{review.comment}}
     </p>
+
+    <div class="review-item__footer">
+        <span class="review-item__rating">⭐ {{review.rating}}/10</span>
+    </div>
 
 </div>

@@ -22,39 +22,17 @@
             </div>
         </div>
 
+        <h2 class="profile-reviews__title">User Reviews</h2>
         <div class="profile-reviews">
-
-            <h2 class="profile-reviews__title">User Reviews</h2>
-
-            <div class="review-item">
-
-                <div class="review-item__header">
-                    <img src="https://m.media-amazon.com/images/I/71uHZO5ChkL.jpg"
-                        class="review-item__avatar" />
-                    <span class="review-item__username">Attack on Titan</span>
-                    <span class="review-item__rating">⭐ 9/10</span>
-                </div>
-
-                <p class="review-item__text">
-                    Attack on Titan is a masterpiece. The story and world-building are unmatched.
-                </p>
-
-            </div>
-
-            <div class="review-item">
-
-                <div class="review-item__header">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/0/07/JujutsuKaisenkeyvisual.jpg"
-                        class="review-item__avatar" />
-                    <span class="review-item__username">Jujutsu Kaisen</span>
-                    <span class="review-item__rating">⭐ 8/10</span>
-                </div>
-
-                <p class="review-item__text">
-                    Jujutsu Kaisen has amazing animation and fight choreography.
-                </p>
-
-            </div>
+            @if (reviews()!.length > 0) {
+                @for (review of reviews(); track review._id) {
+                <app-review-item [review]="review" [inUserPage]="true"/>
+                }
+            }
+            @else {
+                <h2 class="no-reviews-message">No reviews have been left for this anime yet.</h2>
+            }
+            
 
         </div>
 

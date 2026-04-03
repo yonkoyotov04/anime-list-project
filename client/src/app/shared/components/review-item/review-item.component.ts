@@ -9,4 +9,5 @@ import { Review } from '../../interfaces/review';
 })
 export class ReviewItemComponent {
     @Input ({required: true}) review!: Review;
+    @Input ({required: false}) inUserPage!: Boolean;
 }

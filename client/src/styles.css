@@ -209,7 +209,22 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.review-item__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.review-item__actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .review-item__avatar {
@@ -223,7 +238,7 @@ a {
 }
 
 .review-item__rating {
-    margin-left: auto;
+    margin-right: auto;
     color: #f59e0b;
     font-weight: 600;
 }
@@ -335,6 +350,8 @@ a {
     padding: 20px;
     border-radius: 14px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    max-height: 335px;
+    overflow-y: auto;
 }
 
 .reviews-section__title {
@@ -404,4 +421,11 @@ a {
     align-items: center;
     gap: 12px;
     margin-top: 30px;
+}
+
+.no-reviews-message {
+    font-size: 20px;
+    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
