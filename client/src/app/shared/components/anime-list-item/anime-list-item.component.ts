@@ -14,6 +14,7 @@ export class AnimeListItemComponent {
     constructor(public listService: List) {}
 
     @Input ({required: true}) data!: ListItem;
+    @Input ({required: true}) isOwner!: boolean
 
 
 }

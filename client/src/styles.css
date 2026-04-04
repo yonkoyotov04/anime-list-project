@@ -233,6 +233,10 @@ a {
     border-radius: 50%;
 }
 
+.review-item__avatar:hover {
+    box-shadow: 0 0 10px rgba(242, 230, 10, 0.867);
+}
+
 .review-item__username {
     font-weight: 600;
 }

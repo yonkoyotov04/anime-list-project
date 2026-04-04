@@ -11,6 +11,7 @@ import { RouterLink, RouterModule } from "@angular/router";
 export class ReviewItemComponent {
     @Input ({required: true}) review!: Review;
     @Input ({required: false}) inUserPage!: Boolean;
+    @Input ({required: false}) isOwner!: Boolean;
 
     @Output() delete = new EventEmitter<string>();
 

@@ -14,9 +14,15 @@
                 </p>
 
                 <div class="profile-card__actions">
-                    <button [routerLink]="['/profile/edit']" class="ui-btn ui-btn--primary">Edit Profile</button>
-                    <button (click)="showDeleteBox('profile')" class="ui-btn ui-btn--danger">Delete Profile</button>
-                    <button [routerLink]="['/list']" class="ui-btn ui-btn--secondary">View Anime List</button>
+                    @if (ownProfile()) {
+                        <button [routerLink]="['/profile/edit']" class="ui-btn ui-btn--primary">Edit Profile</button>
+                        <button (click)="showDeleteBox('profile')" class="ui-btn ui-btn--danger">Delete Profile</button>
+                    }
+                    <button 
+                    [routerLink]="ownProfile() ? ['/list'] : ['/list', userId()]" 
+                    class="ui-btn ui-btn--secondary">
+                    View Anime List
+                    </button>
                 </div>
 
             </div>
@@ -26,7 +32,7 @@
         <div class="profile-reviews">
             @if (reviews()!.length > 0) {
                 @for (review of reviews(); track review._id) {
-                <app-review-item [review]="review" [inUserPage]="true" (delete)="showDeleteBox('review', $event)"/>
+                <app-review-item [review]="review" [inUserPage]="true" [isOwner]="ownProfile()" (delete)="showDeleteBox('review', $event)"/>
                 }
             }
             @else {

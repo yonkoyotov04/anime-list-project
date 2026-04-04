@@ -6,7 +6,7 @@
 
         @if(listService.watching()!.length > 0) {
             @for(data of listService.watching(); track data) {
-                <app-anime-list-item [data]="data" />
+                <app-anime-list-item [data]="data" [isOwner]="ownList()" />
             }
         } @else {
             <h2 class="no-anime-message">You are not watching any anime at the moment</h2>
@@ -19,7 +19,7 @@
             
         @if(listService.completed()!.length > 0) {
             @for(data of listService.completed(); track data) {
-                <app-anime-list-item [data]="data" />
+                <app-anime-list-item [data]="data" [isOwner]="ownList()" />
             }
         } @else {
             <h2 class="no-anime-message">You have not completed any anime yet</h2>
@@ -32,7 +32,7 @@
 
         @if(listService.dropped()!.length > 0) {
             @for(data of listService.dropped(); track data) {
-                <app-anime-list-item [data]="data" />
+                <app-anime-list-item [data]="data" [isOwner]="ownList()"/>
             }
         } @else {
             <h2 class="no-anime-message">You have not dropped any anime yet</h2>

@@ -4,12 +4,14 @@
     </a>
 
     <span class="list-item__title">{{data.anime.title}}</span>
-
-    <div class="list-item__actions">
-        @if(data.status === 'Watching') {
-            <button (click)="listService.complete(data.anime._id)" class="ui-btn ui-btn--success">Complete</button>
-            <button (click)="listService.drop(data.anime._id)" class="ui-btn ui-btn--danger">Drop</button>
-        }
-        <button (click)="listService.remove(data.anime._id)" class="ui-btn ui-btn--secondary">Remove</button>
-    </div>
+    @if (isOwner) {
+        <div class="list-item__actions">
+            @if(data.status === 'Watching') {
+                <button (click)="listService.complete(data.anime._id)" class="ui-btn ui-btn--success">Complete</button>
+                <button (click)="listService.drop(data.anime._id)" class="ui-btn ui-btn--danger">Drop</button>
+            }
+            <button (click)="listService.remove(data.anime._id)" class="ui-btn ui-btn--secondary">Remove</button>
+        </div>
+    }
+    
 </div>

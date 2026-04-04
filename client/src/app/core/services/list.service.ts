@@ -14,12 +14,18 @@ export class List {
     completed = computed(() => { return this.allAnimes()?.filter(item => item.status === 'Completed') });
     dropped = computed(() => { return this.allAnimes()?.filter(item => item.status === 'Dropped') });
 
-    constructor(private http: HttpClient, private authService: Auth) { }
+    constructor(private authService: Auth) { }
 
-    loadAnimeList() {
-        this.authService.getAnimeList().subscribe((user: any) => {
-            this.allAnimes.set(user.animeList);
-        })
+    loadAnimeList(id?: string) {
+        if (id) {
+            this.authService.getAnimeList(id).subscribe((user: any) => {
+                this.allAnimes.set(user.animeList);
+            })
+        } else {
+            this.authService.getAnimeList().subscribe((user: any) => {
+                this.allAnimes.set(user.animeList);
+            })
+        }
     }
 
     complete(animeId: string): void {
