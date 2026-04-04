@@ -62,6 +62,10 @@ export class Api {
         return this.http.get<Review>(`${this.apiUrl}/review/${reviewId}`, { headers: this.getHeaders(), withCredentials: true });
     }
 
+    getReviewedStatus(animeId: string): Observable<boolean> {
+        return this.http.get<boolean>(`${this.apiUrl}/review/${animeId}/status`, { headers: this.getHeaders(), withCredentials: true });
+    }
+
     editAnime(id: string, newData: any): Observable<Anime> {
         return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
     }

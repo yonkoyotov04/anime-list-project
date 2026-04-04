@@ -13,6 +13,7 @@ import { EditProfileComponent } from './features/edit-profile/edit-profile.compo
 import { AddReviewComponent } from './features/add-review/add-review.component';
 import guestGuard from './core/guards/guestGuard';
 import authGuard from './core/guards/authGuard';
+import reviewGuard from './core/guards/reviewGuard';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -28,7 +29,7 @@ export const routes: Routes = [
     {path: 'list/:userId', component: MyListComponent, canActivate: [authGuard]},
     {path: 'create', component: AddAnimeComponent, canActivate: [authGuard]},
     {path: 'edit/anime/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
-    {path: 'review/:animeId', component: AddReviewComponent, canActivate: [authGuard]},
+    {path: 'review/:animeId', component: AddReviewComponent, canActivate: [authGuard, reviewGuard]},
     {path: 'edit/review/:reviewId', component: AddReviewComponent, canActivate: [authGuard]},
     {path: '**', component: NotFoundComponent}
 ];
