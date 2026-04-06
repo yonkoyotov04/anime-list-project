@@ -5,23 +5,39 @@
         <div class="catalogue-controls">
 
             <div class="catalogue-search">
-                <input type="text" class="catalogue-search__input" placeholder="Search anime..." />
+                <form [formGroup]="searchForm" action="">
+                    <select formControlName="type" class="catalogue-search__type">
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="producedBy">Production Company</option>
+                        <option value="genres">Genre</option>
+                    </select>
+                    <input formControlName="search" type="text" class="catalogue-search__input" placeholder="Search anime..." />
+                    <button type="submit" class="ui-btn ui-btn--primary">Search</button>
+                </form>
+
             </div>
 
             <div class="catalogue-sort">
-                <select class="catalogue-sort__select">
-                    <option>Sort by Title</option>
-                    <option>Sort by Rating</option>
-                    <option>Sort by Start Year</option>
-                    <option>Sort by End Year</option>
-                </select>
+                <form [formGroup]="sortForm" (ngSubmit)="onSort()">
+                    <select class="catalogue-sort__select" formControlName="criteria">
+                        <option value="title(alph)">Sort by Title (Alphabetical)</option>
+                        <option value="title(reAlph)">Sort by TItle (Reverse Alphabetical)</option>
+                        <option value="rating(asc)">Sort by Rating (Ascending)</option>
+                        <option value="rating(desc)">Sort by Rating (Descending)</option>
+                        <option value="newest">Sort by Newest</option>
+                        <option value="oldest">Sort by Oldest</option>
+                    </select>
+                    <button type="submit" class="ui-btn ui-btn--primary">Apply</button>
+                </form>
+
             </div>
 
         </div>
 
-        <div class="catalogue-list">            
-            @for(anime of animes(); track anime._id) {
-                <app-anime-item [anime] = 'anime' />
+        <div class="catalogue-list">
+            @for(anime of sortedAnimes(); track anime._id) {
+            <app-anime-item [anime]='anime' />
             }
         </div>
     </div>

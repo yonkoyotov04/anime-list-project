@@ -21,11 +21,21 @@
     flex: 1;
 }
 
-.catalogue-search__input {
+.catalogue-search form {
+    display: flex;
     width: 100%;
+}
+
+.catalogue-search__type {
+    width: 20%;
+}
+
+.catalogue-search__input {
+    width: 60%;
     padding: 10px 14px;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
+    margin-right: 12px;
     font-size: 14px;
     outline: none;
     transition: border 0.2s, box-shadow 0.2s;
@@ -36,7 +46,7 @@
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-.catalogue-sort__select {
+.catalogue-sort__select, .catalogue-search__type {
     padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid #e5e7eb;
@@ -44,6 +54,7 @@
     font-size: 14px;
     cursor: pointer;
     outline: none;
+    margin-right: 12px;
     transition: border 0.2s, box-shadow 0.2s;
 }
 
