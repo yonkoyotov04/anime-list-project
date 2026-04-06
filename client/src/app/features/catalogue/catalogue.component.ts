@@ -61,7 +61,16 @@ export class CatalogueComponent implements OnInit {
         criteria: ['title(alph)', [Validators.required]]
     })
 
-    onSort():void {
+    onSearch() :void {
+        const searchType = this.searchForm.value.type;
+        const searchInput = this.searchForm.value.search;
+
+        this.apiService.getAnimeWithQuery(searchType!, searchInput!).subscribe((animes) => {
+            this.animes.set(animes);
+        })
+    }
+
+    onSort() :void {
         const sortValue = this.sortForm.value.criteria;
         this.sortType.set(sortValue!);        
     }

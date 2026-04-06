@@ -5,7 +5,7 @@
         <div class="catalogue-controls">
 
             <div class="catalogue-search">
-                <form [formGroup]="searchForm" action="">
+                <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
                     <select formControlName="type" class="catalogue-search__type">
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -22,7 +22,7 @@
                 <form [formGroup]="sortForm" (ngSubmit)="onSort()">
                     <select class="catalogue-sort__select" formControlName="criteria">
                         <option value="title(alph)">Sort by Title (Alphabetical)</option>
-                        <option value="title(reAlph)">Sort by TItle (Reverse Alphabetical)</option>
+                        <option value="title(reAlph)">Sort by Title (Reverse Alphabetical)</option>
                         <option value="rating(asc)">Sort by Rating (Ascending)</option>
                         <option value="rating(desc)">Sort by Rating (Descending)</option>
                         <option value="newest">Sort by Newest</option>

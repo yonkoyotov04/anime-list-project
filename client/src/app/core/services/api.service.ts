@@ -34,6 +34,10 @@ export class Api {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/`);
     }
 
+    getAnimeWithQuery(type: string, search: string): Observable<Anime[]> {
+        return this.http.get<Anime[]>(`${this.apiUrl}/anime/?${type}=${search}`);
+    }
+
     getSpecificAnime(id: string): Observable<Anime> {
         return this.http.get<Anime>(`${this.apiUrl}/anime/${id}`);
     }
