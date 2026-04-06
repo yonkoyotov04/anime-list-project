@@ -17,6 +17,7 @@
                     @if (ownProfile()) {
                         <button [routerLink]="['/profile/edit']" class="ui-btn ui-btn--primary">Edit Profile</button>
                         <button (click)="showDeleteBox('profile')" class="ui-btn ui-btn--danger">Delete Profile</button>
+                        <button [routerLink]="['/profile/edit/password']" class="ui-btn ui-btn--danger">Change Password</button>
                     }
                     <button 
                     [routerLink]="ownProfile() ? ['/list'] : ['/list', userId()]" 

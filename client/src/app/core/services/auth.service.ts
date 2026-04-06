@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/interfaces/user';
+import { ListItem } from '../../shared/interfaces/list-item';
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +14,12 @@ export class Auth {
     user = this._user.asReadonly();
 
     private getHeaders(method?: string) {
+        if (method === 'register' || method === 'login') {
+            return new HttpHeaders({
+                'Content-type': 'application/json'
+            })
+        }
+
         if (method === 'post' || method === 'put') {
             return new HttpHeaders({
                 'Content-type': 'application/json',
@@ -28,11 +35,11 @@ export class Auth {
     constructor(private http: HttpClient) { }
 
     register(authData: any): Observable<User> {
-        return this.http.post<User>(`${this.apiUrl}/register`, authData);
+        return this.http.post<User>(`${this.apiUrl}/register`, authData, { headers: this.getHeaders('register') });
     }
 
     login(authData: any): Observable<User> {
-        return this.http.post<User>(`${this.apiUrl}/login`, authData);
+        return this.http.post<User>(`${this.apiUrl}/login`, authData, {headers: this.getHeaders('login')});
     }
 
     setUser(userData: any): void {
@@ -50,7 +57,8 @@ export class Auth {
         }
     }
 
-    getUserData(id?: string) {
+    getUserData(id?: string): Observable<User> {
+        console.log('In');
         return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { headers: this.getHeaders(), withCredentials: true })
     }
 
@@ -71,31 +79,38 @@ export class Auth {
         localStorage.removeItem('user');
     }
 
-    editUser(newData: any) {
+    editUser(newData: any): Observable<User> {
         return this.http.put<User>(`${this.apiUrl}/${this.user()?._id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
+    }
+
+    changePassword(newPasswordData: any): Observable<void> {
+        return this.http.put<void>(
+            `${this.apiUrl}/password/${this.user()?._id}`,
+            newPasswordData,
+            { headers: this.getHeaders('put'), withCredentials: true })
     }
 
     deleteUser(userId: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${userId}`, { headers: this.getHeaders(), withCredentials: true });
     }
 
-    getAnimeList(userId?: string) {
-        return this.http.get(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, { headers: this.getHeaders(), withCredentials: true });
+    getAnimeList(userId?: string): Observable<ListItem[]> {
+        return this.http.get<ListItem[]>(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, { headers: this.getHeaders(), withCredentials: true });
     }
 
-    addAnimeToList(animeId: string) {
-        return this.http.put(`${this.apiUrl}/${animeId}/watch`, {}, { headers: this.getHeaders(), withCredentials: true });
+    addAnimeToList(animeId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/watch`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
-    removeAnimeFromList(animeId: string) {
-        return this.http.put(`${this.apiUrl}/${animeId}/remove`, {}, { headers: this.getHeaders(), withCredentials: true });
+    removeAnimeFromList(animeId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/remove`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
-    completeAnime(animeId: string) {
-        return this.http.put(`${this.apiUrl}/${animeId}/complete`, {}, { headers: this.getHeaders(), withCredentials: true });
+    completeAnime(animeId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/complete`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 
-    dropAnime(animeId: string) {
-        return this.http.put(`${this.apiUrl}/${animeId}/drop`, {}, { headers: this.getHeaders(), withCredentials: true });
+    dropAnime(animeId: string): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/drop`, {}, { headers: this.getHeaders(), withCredentials: true });
     }
 }

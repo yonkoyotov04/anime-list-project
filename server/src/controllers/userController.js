@@ -83,6 +83,7 @@ userController.get('/logout', isAuth, (req, res) => {
 })
 
 userController.get('/:userId', isAuth, async (req, res) => {
+    console.log('In')
     const userId = req.params.userId;
     const userData = await userService.getUserData(userId);
 
@@ -111,13 +112,13 @@ userController.put('/:userId', isAuth, async (req, res) => {
     }
 })
 
-userController.put('/:userId/password', isAuth, async (req, res) => {
+userController.put('/password/:userId', isAuth, async (req, res) => {
     const userId = req.params.userId;
     const newPasswordData = req.body;
 
     const currentPassword = newPasswordData.currentPassword.trim();
     const newPassword = newPasswordData.newPassword.trim();
-    const repeatNewPassword = newPasswordData.repeatPassword.trim();;
+    const repeatNewPassword = newPasswordData.reNewPassword.trim();
 
     try {
         await userService.editPassword(userId, currentPassword, newPassword, repeatNewPassword)

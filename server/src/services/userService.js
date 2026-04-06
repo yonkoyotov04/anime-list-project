@@ -45,7 +45,7 @@ export default {
             throw new Error('The email or the password is invalid!');
         }
 
-        const validPassword = bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
             throw new Error('The email or the password is invalid!');

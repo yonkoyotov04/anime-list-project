@@ -14,6 +14,7 @@ import { AddReviewComponent } from './features/add-review/add-review.component';
 import guestGuard from './core/guards/guestGuard';
 import authGuard from './core/guards/authGuard';
 import reviewGuard from './core/guards/reviewGuard';
+import { ChangePasswordComponent } from './features/change-password/change-password.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {path: 'about', component: AboutComponent},
     {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
     {path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard]},
+    {path: 'profile/edit/password', component: ChangePasswordComponent, canActivate: [authGuard]},
     {path: 'profile/:userId', component: ProfileComponent, canActivate: [authGuard]},
     {path: 'details/:animeId', component: AnimeDetailsComponent},
     {path: 'list', component: MyListComponent, canActivate: [authGuard]},
