@@ -8,53 +8,55 @@
             </p>
 
             <div class="home-actions">
-                <button class="ui-btn ui-btn--primary">Browse Catalogue</button>
-                <button class="ui-btn ui-btn--secondary">My List</button>
+                <button routerLink="/catalogue" class="ui-btn ui-btn--primary">Browse Catalogue</button>
             </div>
         </section>
 
+        @if(isAuthenticated()) {
         <section class="home-section">
-            <h2 class="home-section__title">Popular Anime</h2>
+            <div class="home-actions">
+                <button routerLink="/create" class="ui-btn ui-btn--primary">Add Anime</button>
+                <button routerLink="/profile" class="ui-btn ui-btn--secondary">View Profile</button>
+                <button routerLink="/list" class="ui-btn ui-btn--secondary">View My List</button>
+            </div>
+        </section>
+        }
+
+        <section class="home-section">
+            <h2 class="home-section__title">Top 5 Trending Anime</h2>
 
             <div class="catalogue-list">
 
-                <div class="catalogue-item">
-                    <img src="https://via.placeholder.com/80x110" class="catalogue-item__image" />
-
-                    <div class="catalogue-item__content">
-                        <h2 class="catalogue-item__title">Attack on Titan</h2>
-                        <span class="catalogue-item__years">2013 - 2023</span>
-                    </div>
-
-                    <div class="catalogue-item__rating-wrapper">
-                        <span class="catalogue-item__rating">⭐ 9.0</span>
-                    </div>
-                </div>
-
-                <div class="catalogue-item">
-                    <img src="https://via.placeholder.com/80x110" class="catalogue-item__image" />
-
-                    <div class="catalogue-item__content">
-                        <h2 class="catalogue-item__title">Jujutsu Kaisen</h2>
-                        <span class="catalogue-item__years">2020 - Present</span>
-                    </div>
-
-                    <div class="catalogue-item__rating-wrapper">
-                        <span class="catalogue-item__rating">⭐ 8.7</span>
-                    </div>
-                </div>
+                @for(anime of apiService.topTrending(); track anime._id) {
+                <app-anime-item [anime]="anime" />
+                }
 
             </div>
-        </section>
 
-        <section class="home-section">
-            <h2 class="home-section__title">Quick Actions</h2>
+            <h2 class="home-section__title">Top 5 Most Popular Anime</h2>
 
-            <div class="home-actions">
-                <button class="ui-btn ui-btn--primary">Add Anime</button>
-                <button class="ui-btn ui-btn--secondary">View Profile</button>
-                <button class="ui-btn ui-btn--secondary">View My List</button>
+            <div class="catalogue-list">
+                @for(anime of apiService.topPopular(); track anime._id) {
+                <app-anime-item [anime]="anime" />
+                }
             </div>
+
+            <h2 class="home-section__title">Top 5 Highest Rated Anime</h2>
+
+            <div class="catalogue-list">
+                @for(anime of apiService.topRated(); track anime._id) {
+                <app-anime-item [anime]="anime" />
+                }
+            </div>
+
+            <h2 class="home-section__title">Top 5 Lowest Rated Anime</h2>
+
+            <div class="catalogue-list">
+                @for(anime of apiService.topLowestRated(); track anime._id) {
+                <app-anime-item [anime]="anime" />
+                }
+            </div>
+
         </section>
 
     </div>

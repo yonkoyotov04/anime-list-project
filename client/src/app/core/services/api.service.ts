@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anime } from '../../shared/interfaces/anime';
 import { Review } from '../../shared/interfaces/review';
@@ -10,9 +10,14 @@ import { Auth } from './auth.service';
 })
 export class Api {
     private apiUrl = 'http://localhost:1298'
-    private _animes = signal<Anime[] | null>(null);
+    private _animes = signal<Anime[]>([]);
 
     animes = this._animes.asReadonly();
+
+    topTrending = computed(() => { return this._animes().sort((a, b) => b.currentlyWatched - a.currentlyWatched).slice(0, 5) });
+    topPopular = computed(() => { return this._animes().sort((a, b) => (b.completed + b.dropped) - (a.completed + a.dropped)).slice(0, 5) });
+    topRated = computed(() => { return this._animes().sort((a, b) => b.rating - a.rating).slice(0, 5) });
+    topLowestRated = computed(() => { return this._animes().sort((a, b) => a.rating - b.rating).slice(0, 5) });
 
     private getHeaders(method?: string) {
         if (method === 'post' || method === 'put') {
@@ -36,6 +41,10 @@ export class Api {
 
     getAnimeWithQuery(type: string, search: string): Observable<Anime[]> {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/?${type}=${search}`);
+    }
+
+    setAnimes(animes: Anime[]): void {
+        this._animes.set(animes);
     }
 
     getSpecificAnime(id: string): Observable<Anime> {

@@ -13,11 +13,10 @@ import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModu
 export class CatalogueComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
 
-    animes = signal<Anime[]>([]);
     sortType = signal<string | null>(null);
 
     sortedAnimes = computed(() => {
-        const list = this.animes();
+        const list = this.apiService.animes();
         const type = this.sortType();
         
         switch(type) {
@@ -48,7 +47,7 @@ export class CatalogueComponent implements OnInit {
 
     ngOnInit(): void {
         this.apiService.getAnime().subscribe((animes) => {
-            this.animes.set(animes);
+            this.apiService.setAnimes(animes);
         })
     }
 
@@ -66,7 +65,7 @@ export class CatalogueComponent implements OnInit {
         const searchInput = this.searchForm.value.search;
 
         this.apiService.getAnimeWithQuery(searchType!, searchInput!).subscribe((animes) => {
-            this.animes.set(animes);
+            this.apiService.setAnimes(animes);
         })
     }
 
