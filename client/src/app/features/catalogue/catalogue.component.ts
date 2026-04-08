@@ -3,15 +3,27 @@ import { Api } from '../../core/services/api.service';
 import { Anime } from '../../shared/interfaces/anime';
 import { AnimeItemComponent } from '../../shared/components/anime-item/anime-item.component';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @Component({
     selector: 'app-catalogue',
-    imports: [AnimeItemComponent, ReactiveFormsModule],
+    imports: [AnimeItemComponent, ReactiveFormsModule, PaginationComponent],
     templateUrl: './catalogue.component.html',
     styleUrl: './catalogue.component.css',
 })
 export class CatalogueComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
+
+    currentPage = signal<number>(1);
+    animesPerPage: number = 10;
+
+    lastAnimeIndex = computed<number>(() => {
+        return this.currentPage() * this.animesPerPage;
+    })
+
+    firstAnimeIndex = computed<number>(() => {
+        return this.lastAnimeIndex() - this.animesPerPage
+    })
 
     sortType = signal<string | null>(null);
 
@@ -43,6 +55,11 @@ export class CatalogueComponent implements OnInit {
         return list;
     })
 
+    currentPageAnimes = computed(() => {
+        const list = this.sortedAnimes();
+        return list.slice(this.firstAnimeIndex(), this.lastAnimeIndex());
+    })
+
     constructor(private apiService: Api) { }
 
     ngOnInit(): void {
@@ -72,5 +89,10 @@ export class CatalogueComponent implements OnInit {
     onSort() :void {
         const sortValue = this.sortForm.value.criteria;
         this.sortType.set(sortValue!);        
+    }
+
+    setCurrentPage(newPage: number): void {
+        this.currentPage.set(newPage!);
+        console.log(this.currentPage());
     }
 }

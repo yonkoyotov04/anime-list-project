@@ -36,9 +36,19 @@
         </div>
 
         <div class="catalogue-list">
-            @for(anime of sortedAnimes(); track anime._id) {
+            @for(anime of currentPageAnimes(); track anime._id) {
             <app-anime-item [anime]='anime' />
             }
         </div>
+
+        @if (sortedAnimes().length > animesPerPage) {
+            <app-pagination 
+            [animeCount]="sortedAnimes().length" 
+            [animePerPage]="animesPerPage" 
+            [currentPage]="currentPage()"
+            [setCurrentPage]="(page) => setCurrentPage(page)" />
+        }
+
+        
     </div>
 </main>

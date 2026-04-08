@@ -1,0 +1,21 @@
+<div class="ui-pagination">
+    <button class="ui-pagination__btn" (click)="previousPage()" [disabled]="currentPage === 1 ? true : false">
+        ← Prev
+    </button>
+
+    <div class="ui-pagination__pages">
+        @for(page of pages; track page) {
+            <button 
+            class="ui-pagination__page" 
+            [class.ui-pagination__page--active]="currentPage === page"
+            (click)="specificPage(page)">{{page}}</button>
+        }
+        <!-- 
+        <span class="ui-pagination__dots">...</span>
+         -->
+    </div>
+
+    <button class="ui-pagination__btn" (click)="nextPage()" [disabled]="currentPage === pages[pages.length - 1]">
+        Next →
+    </button>
+</div>
