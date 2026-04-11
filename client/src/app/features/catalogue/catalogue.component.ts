@@ -93,6 +93,5 @@ export class CatalogueComponent implements OnInit {
 
     setCurrentPage(newPage: number): void {
         this.currentPage.set(newPage!);
-        console.log(this.currentPage());
     }
 }

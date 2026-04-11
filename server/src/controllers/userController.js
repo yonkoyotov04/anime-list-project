@@ -27,8 +27,8 @@ userController.post('/register', isGuest, async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'none',
+            secure: false,
+            sameSite: 'lax',
             path: '/',
             maxAge: 14 * 24 * 60 * 60 * 1000
         })
@@ -48,11 +48,11 @@ userController.post('/login', isGuest, async (req, res) => {
 
     try {
         const { user, refreshToken } = await userService.login(email, password);
-
+        
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'none',
+            secure: false,
+            sameSite: 'lax',
             path: '/',
             maxAge: 14 * 24 * 60 * 60 * 1000
         })
@@ -64,26 +64,26 @@ userController.post('/login', isGuest, async (req, res) => {
     }
 })
 
-userController.post('/refresh', async (req, res) => {
+userController.get('/refresh', async (req, res) => {
     const token = req.cookies['refreshToken'];
 
     if (!token) {
         return res.sendStatus(401);
     }
 
-    const decodedtoken = jwt.verify(token, process.env.REFRESH_JWT_SECRET);
-    const newToken = generateAuthToken(decodedtoken);
+    const decodedToken = jwt.verify(token, process.env.REFRESH_JWT_SECRET);
+    const newToken = generateAuthToken(decodedToken);
 
-    res.status(201).json(newToken);
+    res.status(201).json({accessToken: newToken});
 })
 
 userController.get('/logout', isAuth, (req, res) => {
+    console.log("In logout");
     res.clearCookie('refreshToken');
     res.sendStatus(204);
 })
 
 userController.get('/:userId', isAuth, async (req, res) => {
-    console.log('In')
     const userId = req.params.userId;
     const userData = await userService.getUserData(userId);
 

@@ -17,7 +17,7 @@ import { ReviewItemComponent } from '../../shared/components/review-item/review-
 export class AnimeDetailsComponent implements OnInit {
     private activatedRoute = inject(ActivatedRoute);
     currentAnime = signal<Anime | null>(null);
-    reviews = signal<Review[] | null>(null);
+    reviews = signal<Review[]>([]);
     isWatched = signal<boolean>(false);
     hasLeftReview = signal<boolean>(false);
     userId = signal<string | null>(null);

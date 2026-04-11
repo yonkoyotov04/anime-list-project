@@ -3,14 +3,14 @@
 
         <div class="profile-card">
 
-            <img src={{user()!.profilePic}} class="profile-card__avatar" />
+            <img src={{user()?.profilePic}} class="profile-card__avatar" />
 
             <div class="profile-card__content">
 
-                <h1 class="profile-card__username">{{user()!.username}}</h1>
+                <h1 class="profile-card__username">{{user()?.username}}</h1>
 
                 <p class="profile-card__bio">
-                    {{user()!.bio}}
+                    {{user()?.bio}}
                 </p>
 
                 <div class="profile-card__actions">

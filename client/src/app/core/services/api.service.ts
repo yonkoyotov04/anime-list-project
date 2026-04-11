@@ -19,20 +19,6 @@ export class Api {
     topRated = computed(() => { return this._animes().sort((a, b) => b.rating - a.rating).slice(0, 5) });
     topLowestRated = computed(() => { return this._animes().sort((a, b) => a.rating - b.rating).slice(0, 5) });
 
-    private getHeaders(method?: string) {
-        if (method === 'post' || method === 'put') {
-            return new HttpHeaders({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.authService.user()?.accessToken
-            })
-        }
-
-        return new HttpHeaders({
-            'X-Authorization': this.authService.user()?.accessToken
-        })
-
-    }
-
     constructor(private http: HttpClient, private authService: Auth) { }
 
     getAnime(): Observable<Anime[]> {
@@ -52,11 +38,11 @@ export class Api {
     }
 
     postAnime(animeData: any): Observable<Anime> {
-        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { headers: this.getHeaders('post'), withCredentials: true });
+        return this.http.post<Anime>(`${this.apiUrl}/anime`, animeData, { withCredentials: true });
     }
 
     postReview(animeId: string, reviewData: any): Observable<Review> {
-        return this.http.post<Review>(`${this.apiUrl}/review/${animeId}`, reviewData, {headers: this.getHeaders('post'), withCredentials: true});
+        return this.http.post<Review>(`${this.apiUrl}/review/${animeId}`, reviewData, { withCredentials: true});
     }
 
     getOwnerStatus(id: string): Observable<boolean> {
@@ -72,26 +58,26 @@ export class Api {
     }
 
     getSpecificReview(reviewId: string): Observable<Review> {
-        return this.http.get<Review>(`${this.apiUrl}/review/${reviewId}`, { headers: this.getHeaders(), withCredentials: true });
+        return this.http.get<Review>(`${this.apiUrl}/review/${reviewId}`, { withCredentials: true });
     }
 
     getReviewedStatus(animeId: string): Observable<boolean> {
-        return this.http.get<boolean>(`${this.apiUrl}/review/${animeId}/status`, { headers: this.getHeaders(), withCredentials: true });
+        return this.http.get<boolean>(`${this.apiUrl}/review/${animeId}/status`, { withCredentials: true });
     }
 
     editAnime(id: string, newData: any): Observable<Anime> {
-        return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
+        return this.http.put<Anime>(`${this.apiUrl}/anime/${id}`, newData, { withCredentials: true });
     }
 
     editReview(id: string, newData: any): Observable<Review> {
-        return this.http.put<Review>(`${this.apiUrl}/review/${id}`, newData, { headers: this.getHeaders('put'), withCredentials: true });
+        return this.http.put<Review>(`${this.apiUrl}/review/${id}`, newData, { withCredentials: true });
     }
 
     deleteAnime(id: string): Observable<void> {
-        return this.http.delete <void>(`${this.apiUrl}/anime/${id}`, { headers: this.getHeaders(), withCredentials: true });
+        return this.http.delete <void>(`${this.apiUrl}/anime/${id}`, { withCredentials: true });
     }
 
     deleteReview(id: string): Observable<void> {
-        return this.http.delete <void>(`${this.apiUrl}/review/${id}`, { headers: this.getHeaders(), withCredentials: true });
+        return this.http.delete <void>(`${this.apiUrl}/review/${id}`, { withCredentials: true });
     }
 }

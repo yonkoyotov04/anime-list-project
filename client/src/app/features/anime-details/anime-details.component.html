@@ -3,34 +3,34 @@
 
         <div class="details-card">
 
-            <img src={{currentAnime()!.imageUrl}} class="details-card__image" />
+            <img src={{currentAnime()?.imageUrl}} class="details-card__image" />
 
             <div class="details-card__content">
 
-                <h1 class="details-card__title">{{currentAnime()!.title}}</h1>
+                <h1 class="details-card__title">{{currentAnime()?.title}}</h1>
 
                 <div class="details-card__meta">
-                    <span>⭐ {{currentAnime()!.rating}}/10</span>
-                    <span>{{currentAnime()!.startDate}} - {{currentAnime()!.endDate}}</span>
+                    <span>⭐ {{currentAnime()?.rating}}/10</span>
+                    <span>{{currentAnime()?.startDate}} - {{currentAnime()?.endDate}}</span>
                 </div>
 
                 <p class="details-card__description">
-                    {{currentAnime()!.description}}
+                    {{currentAnime()?.description}}
                 </p>
 
                 <div class="details-card__info-grid">
-                    <div><strong>Author:</strong> {{currentAnime()!.author}}</div>
-                    <div><strong>Studio:</strong> {{currentAnime()!.producedBy}}</div>
-                    <div><strong>Genres:</strong> {{currentAnime()!.genres}}</div>
+                    <div><strong>Author:</strong> {{currentAnime()?.author}}</div>
+                    <div><strong>Studio:</strong> {{currentAnime()?.producedBy}}</div>
+                    <div><strong>Genres:</strong> {{currentAnime()?.genres}}</div>
                 </div>
 
                 <div class="details-card__stats">
                     <span class="details-card__stat details-card__stat--watching">Watching:
-                        {{currentAnime()!.currentlyWatched}}</span>
+                        {{currentAnime()?.currentlyWatched}}</span>
                     <span class="details-card__stat details-card__stat--completed">Completed:
-                        {{currentAnime()!.completed}}</span>
+                        {{currentAnime()?.completed}}</span>
                     <span class="details-card__stat details-card__stat--dropped">Dropped:
-                        {{currentAnime()!.dropped}}</span>
+                        {{currentAnime()?.dropped}}</span>
                 </div>
 
             </div>

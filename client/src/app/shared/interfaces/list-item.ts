@@ -4,6 +4,7 @@ export interface ListItem {
         imageUrl: string,
         _id: string
     };
-    status: string
+    status: string,
+    _id: string
 }
 

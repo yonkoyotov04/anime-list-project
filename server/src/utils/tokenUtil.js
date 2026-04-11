@@ -7,7 +7,7 @@ export function generateAuthToken(user) {
         email: user.email
     }
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2m' });
 
     return token;
 }
@@ -18,7 +18,7 @@ export function generateRefeshToken(user) {
         email: user.email
     }
 
-    const token = jwt.sign(payload, process.env.REFRESH_JWT_SECRET, { expiresIn: '14d' });
+    const token = jwt.sign(payload, process.env.REFRESH_JWT_SECRET, { expiresIn: '2h' });
 
     return token;
 }
