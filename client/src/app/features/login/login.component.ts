@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from "@angular/forms";
 import { Auth } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
     selector: 'app-login',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
     formBuilder = inject(FormBuilder);
 
-    constructor(private authService: Auth, private router: Router) { }
+    constructor(private authService: Auth, private notifService: Notif, private router: Router) { }
 
     loginForm = this.formBuilder.group({
         email: ['', [Validators.required]],
@@ -36,11 +37,13 @@ export class LoginComponent {
         this.authService.login({ ...this.loginForm.value }).subscribe({
             next: (user) => {
                 this.authService.setUser(user);
+                this.notifService.setSuccessMessage('Succesfully logged in!')
                 this.router.navigateByUrl('/');
             },
 
             error: (error) => {
-                console.error(error)
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }

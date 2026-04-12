@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../core/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Anime } from '../../shared/interfaces/anime';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
     selector: 'app-add-anime',
@@ -17,7 +18,7 @@ export class AddAnimeComponent implements OnInit {
     animeId = signal<string|null>(null);
     editMode = signal<boolean>(false);
 
-    constructor(private apiService: Api, private router: Router) {}
+    constructor(private apiService: Api, private notifService: Notif, private router: Router) {}
 
     animeForm = this.formBuilder.group({
         title: ['', [Validators.required, Validators.minLength(2)]],
@@ -82,11 +83,13 @@ export class AddAnimeComponent implements OnInit {
 
         this.apiService.postAnime({...this.animeForm.value}).subscribe({
             next: () => {
+                this.notifService.setSuccessMessage("Successfully added anime!")
                 this.router.navigateByUrl('/catalogue');
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }
@@ -99,7 +102,13 @@ export class AddAnimeComponent implements OnInit {
 
         this.apiService.editAnime(this.animeId()!, {...this.animeForm.value}).subscribe({
             next: () => {
+                this.notifService.setSuccessMessage('Successfully edited anime!')
                 this.router.navigateByUrl(`/details/${this.animeId()}`);
+            },
+
+            error: (error) => {
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }

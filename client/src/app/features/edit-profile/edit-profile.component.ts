@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
     selector: 'app-edit-profile',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class EditProfileComponent implements OnInit{
     private formBuilder = inject(FormBuilder);
 
-    constructor(private authService: Auth, private router: Router) { }
+    constructor(private authService: Auth, private router: Router, private notifService: Notif) { }
 
     editForm = this.formBuilder.group({
         username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -50,11 +51,13 @@ export class EditProfileComponent implements OnInit{
             next: (user) => {
                 const token = this.authService.getToken();
                 this.authService.setUser({accessToken: token, ...user});
+                this.notifService.setSuccessMessage('Successfully edited profile!');
                 this.router.navigateByUrl('/profile');
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }

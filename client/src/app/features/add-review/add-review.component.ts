@@ -3,6 +3,7 @@ import { Api } from '../../core/services/api.service';
 import { Auth } from '../../core/services/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
     selector: 'app-add-review',
@@ -14,7 +15,7 @@ export class AddReviewComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
     private activatedRoute = inject(ActivatedRoute);    
 
-    constructor(private apiService: Api, private authService: Auth, private router: Router) {}
+    constructor(private apiService: Api, private authService: Auth, private notifService: Notif, private router: Router) {}
 
     animeId = signal<string | null>(null);
     reviewId = signal<string | null>(null);
@@ -56,11 +57,13 @@ export class AddReviewComponent implements OnInit {
 
         this.apiService.postReview(this.animeId()!, {...this.reviewForm.value}).subscribe({
             next: () => {
+                this.notifService.setSuccessMessage('Successfully posted review!');
                 this.router.navigate(['/details', this.animeId()]);
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }
@@ -73,11 +76,13 @@ export class AddReviewComponent implements OnInit {
 
         this.apiService.editReview(this.reviewId()!, {...this.reviewForm.value}).subscribe({
             next: () => {
+                this.notifService.setSuccessMessage('Successfuly edited review!');
                 this.router.navigateByUrl('/profile');
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }

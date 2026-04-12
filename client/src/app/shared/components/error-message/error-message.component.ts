@@ -1,0 +1,12 @@
+import { Component, Input } from '@angular/core';
+import { Notification } from '../../interfaces/notification';
+
+@Component({
+    selector: 'app-error-message',
+    imports: [],
+    templateUrl: './error-message.component.html',
+    styleUrl: './error-message.component.css',
+})
+export class ErrorMessageComponent {
+    @Input ({required: true}) notification!: Notification
+}

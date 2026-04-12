@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
     selector: 'app-register',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
     private formBuilder = inject(FormBuilder);
 
-    constructor(private authService: Auth, private router: Router) {}
+    constructor(private authService: Auth, private notifService: Notif, private router: Router) {}
 
     registerForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(30)]],
@@ -56,11 +57,13 @@ export class RegisterComponent {
         this.authService.register({...this.registerForm.value}).subscribe({
             next: (user) => {
                 this.authService.setUser(user);
+                this.notifService.setSuccessMessage('Successfuly registered!');
                 this.router.navigateByUrl('/');
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
     }

@@ -67,7 +67,7 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
 
     if (exists) {
         res.statusMessage = "You've already left a review!";
-        res.status(400).end();
+        res.status(400).json({error: "You've already left a review!"});
     }
 
     const animeRating = await animeService.getCurrentRating(animeId);
@@ -87,8 +87,9 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
 
         res.status(201).json(review ?? {});
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(400).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(400).json({message: errorMessage});
     }
 })
 
@@ -116,8 +117,9 @@ reviewController.put('/:reviewId', isAuth, async (req, res) => {
 
         res.status(201).json(newReview ?? {});
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(400).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(400).json({message: errorMessage});
     }
 })
 
@@ -143,7 +145,7 @@ reviewController.delete('/:reviewId', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.status(400).end();
+        res.status(400).json({message: 'Failed to delete review!'});
     }
 })
 

@@ -18,4 +18,8 @@
             <a routerLink="/about" class="ui-header__link">About</a>
         </nav>
     </div>
+    
 </header>
+@if(notification()) {
+    <app-error-message [notification]="notification()!"/>
+}   

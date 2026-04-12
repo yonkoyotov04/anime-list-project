@@ -5,7 +5,6 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import jwt from 'jsonwebtoken';
 import { generateAuthToken } from "../utils/tokenUtil.js";
 import reviewService from "../services/reviewService.js";
-import User from "../models/User.js";
 
 const userController = Router();
 
@@ -35,8 +34,9 @@ userController.post('/register', isGuest, async (req, res) => {
 
         res.status(201).json(user);
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(400).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(400).json({ message: errorMessage });
     }
 })
 
@@ -48,7 +48,7 @@ userController.post('/login', isGuest, async (req, res) => {
 
     try {
         const { user, refreshToken } = await userService.login(email, password);
-        
+
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: false,
@@ -59,8 +59,9 @@ userController.post('/login', isGuest, async (req, res) => {
 
         res.status(201).json(user);
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(400).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(400).json({ message: errorMessage });
     }
 })
 
@@ -74,7 +75,7 @@ userController.get('/refresh', async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.REFRESH_JWT_SECRET);
     const newToken = generateAuthToken(decodedToken);
 
-    res.status(201).json({accessToken: newToken});
+    res.status(201).json({ accessToken: newToken });
 })
 
 userController.get('/logout', isAuth, (req, res) => {
@@ -104,11 +105,13 @@ userController.put('/:userId', isAuth, async (req, res) => {
             email: userData.email,
             password: userData.password,
             animeList: userData.animeList,
-            ...newData});
+            ...newData
+        });
         res.status(201).json(editedUser ?? {});
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(401).json({ message: errorMessage });
     }
 })
 
@@ -124,8 +127,9 @@ userController.put('/password/:userId', isAuth, async (req, res) => {
         await userService.editPassword(userId, currentPassword, newPassword, repeatNewPassword)
         res.status(200).end();
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(401).json({ message: errorMessage });
     }
 })
 
@@ -139,7 +143,7 @@ userController.delete('/:userId', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(400);
+        res.status(400).json({ message: 'Failed to delete profile!' });
     }
 })
 
@@ -151,7 +155,7 @@ userController.get('/:userId/list', isAuth, async (req, res) => {
         res.status(200).json(animeList ?? [])
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(401);
+        res.status(400).json({ message: 'Failed to get anime list!' });
     }
 })
 
@@ -164,7 +168,7 @@ userController.put('/:animeId/watch', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(400)
+        res.status(400).json({ message: 'Failed to add anime to watched!' });
     }
 })
 
@@ -177,7 +181,7 @@ userController.put('/:animeId/remove', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(400)
+        res.status(400).json({ message: 'Failed to remove anime from list!' });
     }
 })
 
@@ -190,7 +194,7 @@ userController.put('/:animeId/complete', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(400)
+        res.status(400).json({ message: 'Failed to complete anime!' });
     }
 })
 
@@ -203,7 +207,7 @@ userController.put('/:animeId/drop', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.sendStatus(400)
+        res.status(400).json({ message: 'Failed to drop anime!' });
     }
 })
 

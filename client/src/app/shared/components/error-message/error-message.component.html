@@ -1,0 +1,15 @@
+<div class="ui-notification"
+[class.ui-error]="notification.type === 'error'"
+[class.ui-success]="notification.type === 'success'"
+>
+    @if (notification.type === 'error') {
+        <span class="ui-icon">⚠️</span>
+    }
+    @else {
+        <span class="ui-icon">✅</span>
+    }
+    
+    <p class="ui-text">
+        {{notification.message}}
+    </p>
+</div>

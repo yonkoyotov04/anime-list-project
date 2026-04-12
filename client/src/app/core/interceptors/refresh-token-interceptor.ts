@@ -2,9 +2,11 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Auth } from '../services/auth.service';
 import { catchError, switchMap, throwError } from 'rxjs';
+import { Notif } from '../services/notif.service';
 
 export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(Auth);
+    const notifService = inject(Notif);
 
     const token = authService.getToken();
     let reqClone = req;
@@ -31,8 +33,6 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
                 return authService.refreshToken().pipe(
                     switchMap((res: any) => {
                         authService.setUser({ ...authService.user(), accessToken: res.accessToken });
-                        console.log('refresh');
-                        
 
                         const retryReq = req.clone({
                             setHeaders: {
@@ -44,10 +44,12 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
                     }),
                     catchError(() => {
                         authService.logout();
+                        authService.afterLogout();
                         return throwError(() => error);
                     })
                 )
             }
+            notifService.setErrorMessage(error.error?.message);
             return throwError(() => error);
         })
     );

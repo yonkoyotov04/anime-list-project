@@ -34,8 +34,8 @@ animeController.post('/', isAuth, async (req, res) => {
         const anime = await animeService.createAnime(animeData, userId);
         res.status(200).json(anime ?? {});
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        const errorMessage = getErrorMessage(error);
+        res.status(401).json({message: errorMessage});
     }
 })
 
@@ -95,8 +95,9 @@ animeController.put('/:animeId', isAuth, async (req, res) => {
              ...newData});
         res.status(201).json(editedAnime ?? {});
     } catch (error) {
-        res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        const errorMessage = getErrorMessage(error);
+        res.statusMessage = errorMessage;
+        res.status(401).json({message: errorMessage});
     }
 })
 
@@ -115,7 +116,7 @@ animeController.delete('/:animeId', isAuth, async (req, res) => {
         res.status(200).end();
     } catch (error) {
         res.statusMessage = getErrorMessage(error);
-        res.status(401).end();
+        res.status(401).json({message: "Failed to delete anime!"});
     }
 })
 

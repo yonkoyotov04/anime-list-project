@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { Notif } from '../../core/services/notif.service';
 
 @Component({
   selector: 'app-change-password',
@@ -13,7 +14,7 @@ export class ChangePasswordComponent {
     private formBuilder = inject(FormBuilder);
     private router = inject(Router);
 
-    constructor(private authService: Auth) {}
+    constructor(private authService: Auth, private notifService: Notif) {}
 
     changePasswordForm = this.formBuilder.group({
         currentPassword: ['', [Validators.required]],
@@ -37,11 +38,13 @@ export class ChangePasswordComponent {
 
         this.authService.changePassword({...this.changePasswordForm.value}).subscribe({
             next: () => {
+                this.notifService.setSuccessMessage('Successfully changed password!')
                 this.router.navigateByUrl('/profile');
             },
 
             error: (error) => {
-                console.error(error);
+                const errorMessage = error.error?.message;
+                this.notifService.setErrorMessage(errorMessage);
             }
         })
 
