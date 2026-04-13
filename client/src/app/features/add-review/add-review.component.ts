@@ -15,7 +15,7 @@ export class AddReviewComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
     private activatedRoute = inject(ActivatedRoute);    
 
-    constructor(private apiService: Api, private authService: Auth, private notifService: Notif, private router: Router) {}
+    constructor(private apiService: Api, private notifService: Notif, private router: Router) {}
 
     animeId = signal<string | null>(null);
     reviewId = signal<string | null>(null);
@@ -88,6 +88,6 @@ export class AddReviewComponent implements OnInit {
     }
 
     cancel(): void {
-        this.router.navigate(['/details', this.animeId()]);
+        this.router.navigateByUrl('/profile');
     }
 }

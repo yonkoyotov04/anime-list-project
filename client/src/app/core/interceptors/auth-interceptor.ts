@@ -4,11 +4,12 @@ import { Auth } from '../services/auth.service';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { Notif } from '../services/notif.service';
 
-export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(Auth);
     const notifService = inject(Notif);
 
     const token = authService.getToken();
+    const isAuth = req.headers.get('isAuth') === 'true';
     let reqClone = req;
 
     if (req.url.includes('/register') || req.url.includes('/login')) {
@@ -19,7 +20,7 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
         return next(req);
     }
 
-    if (token) {
+    if (token && isAuth) {
         reqClone = req.clone({
             setHeaders: {
                 'X-Authorization': token

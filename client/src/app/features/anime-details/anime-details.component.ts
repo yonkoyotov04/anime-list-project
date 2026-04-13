@@ -42,8 +42,6 @@ export class AnimeDetailsComponent implements OnInit {
             this.reviews.set(reviews);
             this.hasLeftReview.set(reviews.some(review => review.user._id.toString() === this.userId()));
         })
-
-        
     }
 
     handleWatched(): void {
@@ -59,6 +57,10 @@ export class AnimeDetailsComponent implements OnInit {
                 this.currentAnime.update(anime => ({...anime!, currentlyWatched: anime!.currentlyWatched + 1}))
             })
         }
+    }
+
+    isAuthenticated() {
+        return this.authService.isAuthenticated();
     }
 
     showDeleteBox() {

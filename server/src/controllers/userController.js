@@ -84,7 +84,7 @@ userController.get('/logout', isAuth, (req, res) => {
     res.sendStatus(204);
 })
 
-userController.get('/:userId', isAuth, async (req, res) => {
+userController.get('/:userId', async (req, res) => {
     const userId = req.params.userId;
     const userData = await userService.getUserData(userId);
 

@@ -120,11 +120,11 @@ export default {
 
     async completeAnime(userId, animeId) {
         await User.findOneAndUpdate({_id: userId, 'animeList.anime': animeId}, {$set: {'animeList.$.status': 'Completed'}});
-        return Anime.findByIdAndUpdate(animeId, { $inc: {completed: 1}}, {runValidators: true, returnDocument: true});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {completed: 1, currentlyWatched: -1}}, {runValidators: true, returnDocument: true});
     },
 
     async dropAnime(userId, animeId) {
         await User.findOneAndUpdate({_id: userId, 'animeList.anime': animeId}, {$set: {'animeList.$.status': 'Dropped'}});
-        return Anime.findByIdAndUpdate(animeId, { $inc: {dropped: 1}}, {runValidators: true, returnDocument: true});
+        return Anime.findByIdAndUpdate(animeId, { $inc: {dropped: 1, currentlyWatched: -1}}, {runValidators: true, returnDocument: true});
     }
 }

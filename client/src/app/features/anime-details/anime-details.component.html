@@ -11,7 +11,7 @@
 
                 <div class="details-card__meta">
                     <span>⭐ {{currentAnime()?.rating}}/10</span>
-                    <span>{{currentAnime()?.startDate}} - {{currentAnime()?.endDate}}</span>
+                    <span>Release: {{currentAnime()?.startDate}} - {{currentAnime()?.endDate}}</span>
                 </div>
 
                 <p class="details-card__description">
@@ -36,6 +36,7 @@
             </div>
         </div>
 
+        @if (isAuthenticated()) {
         <div class="anime-actions">
             <button [routerLink]="hasLeftReview() ? '' : ['/review', this.currentAnime()?._id]"
                 [disabled]="hasLeftReview()" [style.cursor]="hasLeftReview() ? 'default' : 'pointer'"
@@ -59,17 +60,19 @@
 
             </button>
         </div>
+        }
+
 
         <h2 class="reviews-section__title">Reviews</h2>
         <div class="reviews-section">
 
             @if (reviews()!.length > 0) {
-                @for(review of reviews(); track review._id) {
-                <app-review-item [review]='review' />
-                }
+            @for(review of reviews(); track review._id) {
+            <app-review-item [review]='review' />
+            }
             }
             @else {
-                <h2 class="no-reviews-message">No reviews have been left for this anime yet.</h2>
+            <h2 class="no-reviews-message">No reviews have been left for this anime yet.</h2>
             }
 
 

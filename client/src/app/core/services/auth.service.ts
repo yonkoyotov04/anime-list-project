@@ -39,7 +39,7 @@ export class Auth {
     }
 
     getUserData(id?: string): Observable<User> {
-        return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { withCredentials: true })
+        return this.http.get<User>(`${this.apiUrl}/${id ? id : this.user()?._id}`, { headers: { 'isAuth': 'false' }, withCredentials: true })
     }
 
     getToken() {
@@ -57,7 +57,7 @@ export class Auth {
     }
 
     logout(): Observable<void> {
-        return this.http.get<void>(`${this.apiUrl}/logout`, { withCredentials: true });
+        return this.http.get<void>(`${this.apiUrl}/logout`, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     afterLogout(): void {
@@ -67,37 +67,38 @@ export class Auth {
     }
 
     editUser(newData: any): Observable<User> {
-        return this.http.put<User>(`${this.apiUrl}/${this.user()?._id}`, newData, { withCredentials: true });
+        return this.http.put<User>(`${this.apiUrl}/${this.user()?._id}`, newData, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     changePassword(newPasswordData: any): Observable<void> {
         return this.http.put<void>(
             `${this.apiUrl}/password/${this.user()?._id}`,
             newPasswordData,
-            { withCredentials: true })
+            { headers: { 'isAuth': 'true' }, withCredentials: true })
     }
 
     deleteUser(userId: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${userId}`, { withCredentials: true });
+        return this.http.delete<void>(`${this.apiUrl}/${userId}`, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     getAnimeList(userId?: string): Observable<ListItem[]> {
-        return this.http.get<ListItem[]>(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`, { withCredentials: true });
+        return this.http.get<ListItem[]>(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`,
+            { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     addAnimeToList(animeId: string): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${animeId}/watch`, {}, { withCredentials: true });
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/watch`, {}, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     removeAnimeFromList(animeId: string): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${animeId}/remove`, {}, { withCredentials: true });
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/remove`, {}, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     completeAnime(animeId: string): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${animeId}/complete`, {}, { withCredentials: true });
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/complete`, {}, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 
     dropAnime(animeId: string): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${animeId}/drop`, {}, { withCredentials: true });
+        return this.http.put<void>(`${this.apiUrl}/${animeId}/drop`, {}, { headers: { 'isAuth': 'true' }, withCredentials: true });
     }
 }
