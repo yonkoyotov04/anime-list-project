@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit {
     delete(userId: string) {
         this.authService.deleteUser(userId).subscribe(() => {
             this.authService.logout();
+            this.authService.afterLogout();
             this.router.navigateByUrl('/');
         });
     }
