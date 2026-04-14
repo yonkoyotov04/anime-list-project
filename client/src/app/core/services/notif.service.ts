@@ -25,10 +25,12 @@ export class Notif {
     }
 
     setSuccessMessage(message: string): void {
+        console.log(message);
         this.setNotif({message, type: 'success'});
     }
 
     setErrorMessage(message: string): void {
+        console.log(message);
         this.setNotif({message, type: 'error'});
     }
 }

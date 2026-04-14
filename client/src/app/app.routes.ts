@@ -1,37 +1,104 @@
 import { Routes } from '@angular/router';
-import { RegisterComponent } from './features/register/register.component';
-import { LoginComponent } from './features/login/login.component';
-import { HomeComponent } from './features/home/home.component';
-import { CatalogueComponent } from './features/catalogue/catalogue.component';
-import { AboutComponent } from './features/about/about.component';
-import { ProfileComponent } from './features/profile/profile.component';
-import { AnimeDetailsComponent } from './features/anime-details/anime-details.component';
-import { MyListComponent } from './features/my-list/my-list.component';
-import { AddAnimeComponent } from './features/add-anime/add-anime.component';
-import { NotFoundComponent } from './features/not-found/not-found.component';
-import { EditProfileComponent } from './features/edit-profile/edit-profile.component';
-import { AddReviewComponent } from './features/add-review/add-review.component';
 import guestGuard from './core/guards/guestGuard';
 import authGuard from './core/guards/authGuard';
 import reviewGuard from './core/guards/reviewGuard';
-import { ChangePasswordComponent } from './features/change-password/change-password.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'register', component: RegisterComponent, canActivate: [guestGuard]},
-    {path: 'login', component: LoginComponent, canActivate: [guestGuard]},
-    {path: 'catalogue', component: CatalogueComponent},
-    {path: 'about', component: AboutComponent},
-    {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
-    {path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard]},
-    {path: 'profile/edit/password', component: ChangePasswordComponent, canActivate: [authGuard]},
-    {path: 'profile/:userId', component: ProfileComponent, canActivate: [authGuard]},
-    {path: 'details/:animeId', component: AnimeDetailsComponent},
-    {path: 'list', component: MyListComponent, canActivate: [authGuard]},
-    {path: 'list/:userId', component: MyListComponent, canActivate: [authGuard]},
-    {path: 'create', component: AddAnimeComponent, canActivate: [authGuard]},
-    {path: 'edit/anime/:animeId', component: AddAnimeComponent, canActivate: [authGuard]},
-    {path: 'review/:animeId', component: AddReviewComponent, canActivate: [authGuard, reviewGuard]},
-    {path: 'edit/review/:reviewId', component: AddReviewComponent, canActivate: [authGuard]},
-    {path: '**', component: NotFoundComponent}
+    {
+        path: '',
+        loadComponent: () => import('./features/home/home.component')
+            .then(m => m.HomeComponent)
+    },
+    {
+        path: 'register',
+        loadComponent: () => import('./features/register/register.component')
+            .then(m => m.RegisterComponent),
+        canActivate: [guestGuard]
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./features/login/login.component')
+            .then(m => m.LoginComponent),
+        canActivate: [guestGuard]
+    },
+    {
+        path: 'catalogue',
+        loadComponent: () => import('./features/catalogue/catalogue.component')
+            .then(m => m.CatalogueComponent)
+    },
+    {
+        path: 'about',
+        loadComponent: () => import('./features/about/about.component')
+            .then(m => m.AboutComponent)
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./features/profile/profile.component')
+            .then(m => m.ProfileComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'profile/edit',
+        loadComponent: () => import('./features/edit-profile/edit-profile.component')
+            .then(m => m.EditProfileComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'profile/edit/password',
+        loadComponent: () => import('./features/change-password/change-password.component')
+            .then(m => m.ChangePasswordComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'profile/:userId',
+        loadComponent: () => import('./features/profile/profile.component')
+            .then(m => m.ProfileComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'details/:animeId',
+        loadComponent: () => import('./features/anime-details/anime-details.component')
+            .then(m => m.AnimeDetailsComponent)
+    },
+    {
+        path: 'list',
+        loadComponent: () => import('./features/my-list/my-list.component')
+            .then(m => m.MyListComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'list/:userId',
+        loadComponent: () => import('./features/my-list/my-list.component')
+            .then(m => m.MyListComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'create',
+        loadComponent: () => import('./features/add-anime/add-anime.component')
+            .then(m => m.AddAnimeComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'edit/anime/:animeId',
+        loadComponent: () => import('./features/add-anime/add-anime.component')
+            .then(m => m.AddAnimeComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'review/:animeId',
+        loadComponent: () => import('./features/add-review/add-review.component')
+            .then(m => m.AddReviewComponent),
+        canActivate: [authGuard, reviewGuard]
+    },
+    {
+        path: 'edit/review/:reviewId',
+        loadComponent: () => import('./features/add-review/add-review.component')
+            .then(m => m.AddReviewComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: '**',
+        loadComponent: () => import('./features/not-found/not-found.component')
+            .then(m => m.NotFoundComponent)
+    }
 ];
