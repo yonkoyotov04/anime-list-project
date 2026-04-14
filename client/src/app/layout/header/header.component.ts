@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { Auth } from '../../core/services/auth.service';
 import { ErrorMessageComponent } from '../../shared/components/error-message/error-message.component';
@@ -10,18 +10,12 @@ import { Notif } from '../../core/services/notif.service';
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
 })
-export class Header implements OnInit {
+export class Header {
     private notifService = inject(Notif);
 
     notification = this.notifService.notification;
 
-    // userData = signal<any>(null)
-
     constructor(private authService: Auth, private router: Router) { }
-
-    ngOnInit(): void {
-        // this.userData.set({ username: this.authService.user().username, profilePic: this.authService.user().profilePic });
-    }
 
     isAuthenticated(): any {
         return this.authService.isAuthenticated();
@@ -35,7 +29,6 @@ export class Header implements OnInit {
         this.authService.logout().subscribe({
             next: () => {
                 this.authService.afterLogout();
-                // this.userData.set(null);
                 this.router.navigateByUrl('/');
             }
         });

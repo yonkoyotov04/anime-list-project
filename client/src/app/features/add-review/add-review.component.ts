@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Api } from '../../core/services/api.service';
-import { Auth } from '../../core/services/auth.service';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Notif } from '../../core/services/notif.service';

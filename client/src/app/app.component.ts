@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header.component';
 import { Footer } from './layout/footer/footer.component';
-import { RegisterComponent } from './features/register/register.component';
 import { Auth } from './core/services/auth.service';
 
 @Component({

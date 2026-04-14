@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anime } from '../../shared/interfaces/anime';
 import { Review } from '../../shared/interfaces/review';
-import { Auth } from './auth.service';
 
 @Injectable({
     providedIn: 'root',
@@ -19,7 +18,7 @@ export class Api {
     topRated = computed(() => { return this._animes().sort((a, b) => b.rating - a.rating).slice(0, 5) });
     topLowestRated = computed(() => { return this._animes().sort((a, b) => a.rating - b.rating).slice(0, 5) });
 
-    constructor(private http: HttpClient, private authService: Auth) { }
+    constructor(private http: HttpClient) { }
 
     getAnime(): Observable<Anime[]> {
         return this.http.get<Anime[]>(`${this.apiUrl}/anime/`, { headers: { 'isAuth': 'false' }, withCredentials: true });

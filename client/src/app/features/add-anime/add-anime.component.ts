@@ -2,7 +2,6 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Api } from '../../core/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Anime } from '../../shared/interfaces/anime';
 import { Notif } from '../../core/services/notif.service';
 
 @Component({

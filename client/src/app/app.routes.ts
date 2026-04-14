@@ -52,8 +52,7 @@ export const routes: Routes = [
     {
         path: 'profile/:userId',
         loadComponent: () => import('./features/profile/profile.component')
-            .then(m => m.ProfileComponent),
-        canActivate: [authGuard]
+            .then(m => m.ProfileComponent)
     },
     {
         path: 'details/:animeId',
@@ -69,8 +68,7 @@ export const routes: Routes = [
     {
         path: 'list/:userId',
         loadComponent: () => import('./features/my-list/my-list.component')
-            .then(m => m.MyListComponent),
-        canActivate: [authGuard]
+            .then(m => m.MyListComponent)
     },
     {
         path: 'create',

@@ -61,7 +61,7 @@ animeController.get('/:animeId/status', isAuth, async (req, res) => {
     const anime = await animeService.getOneAnime(animeId);
     let isOwner = true;
 
-    if (!anime.ownerId.equals(req.user?.id) && !req.isAdmin) {
+    if (!anime.ownerId.equals(req.user?.id)) {
         isOwner = false;
     }
 
@@ -83,8 +83,8 @@ animeController.put('/:animeId', isAuth, async (req, res) => {
     newData['imageUrl'] = newData.imageUrl.trim();
 
     try {
-        if (!anime.ownerId.equals(req.user?.id) && !req.isAdmin) {
-            throw new Error('Only the owner and admin can edit!')
+        if (!anime.ownerId.equals(req.user?.id)) {
+            throw new Error('Only the owner can edit!')
         }
 
         const editedAnime = await animeService.editAnime(animeId, {
@@ -106,8 +106,8 @@ animeController.delete('/:animeId', isAuth, async (req, res) => {
     const anime = await animeService.getOneAnime(animeId);
 
     try {
-        if (!anime.ownerId.equals(req.user?.id) && !req.isAdmin) {
-            throw new Error('Only the owner and admin can delete!')
+        if (!anime.ownerId.equals(req.user?.id)) {
+            throw new Error('Only the owner can delete!')
         }
 
         await reviewService.deleteReviewsForAnime(animeId);

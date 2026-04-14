@@ -1,8 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Api } from '../../core/services/api.service';
-import { Anime } from '../../shared/interfaces/anime';
 import { AnimeItemComponent } from '../../shared/components/anime-item/anime-item.component';
-import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
 
 @Component({

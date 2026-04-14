@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Auth } from './auth.service';
 import { ListItem } from '../../shared/interfaces/list-item';

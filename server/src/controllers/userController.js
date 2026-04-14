@@ -79,7 +79,6 @@ userController.get('/refresh', async (req, res) => {
 })
 
 userController.get('/logout', isAuth, (req, res) => {
-    console.log("In logout");
     res.clearCookie('refreshToken');
     res.sendStatus(204);
 })

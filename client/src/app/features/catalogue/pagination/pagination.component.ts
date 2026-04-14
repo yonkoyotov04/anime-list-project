@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { required } from '@angular/forms/signals';
 
 @Component({
     selector: 'app-pagination',
