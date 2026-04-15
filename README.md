@@ -123,12 +123,12 @@ Reviews:
 
 ## How to run the project
 - By using the link for the deployed version of it
-    1. Follow the link
+1. Follow the link
 - By running it in Visual Studio Code
-    1. In the terminal run 'cd server
-    2. Run 'npm install' to install all dependencies of the server
-    3. Run 'npm start' to start the server
-    4. In a new terminal run 'cd client'
-    5. Run 'npm install' to install all dependencies of the client
-    6. Run 'ng serve' to start the client
-    7. Follow the link given after starting the client (http://localhost:4200/)
+1. In the terminal run 'cd server
+2. Run 'npm install' to install all dependencies of the server
+3. Run 'npm start' to start the server
+4. In a new terminal run 'cd client'
+5. Run 'npm install' to install all dependencies of the client
+6. Run 'ng serve' to start the client
+7. Follow the link given after starting the client (http://localhost:4200/)
