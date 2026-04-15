@@ -453,6 +453,15 @@ a {
     color: #dc2626;
 }
 
+.details-login-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+    font-size: 18px;
+    color: #6b7280;
+}
+
 .reviews-section {
     display: flex;
     flex-direction: column;
