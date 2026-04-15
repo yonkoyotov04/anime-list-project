@@ -5,6 +5,7 @@ The main purpose of AniList+ is to be a tool for users to document their anime j
 
 ## User Roles
 There are two user roles - Guests and Authenticated Users. 
+
 Guest users: 
 - can view the home page
 - can view the catalogue page
@@ -94,17 +95,17 @@ Reviews:
 - comment
 
 ## Project Architecture
-client/ (the main folder of the angular client)
-    public/ (contains just the site icon for now)
-    src/
-        app/ (contains the main component and all of it's sub-components)
-            core/ (contains services, guards and interceptors)
-            features/ (contains all the main components that are displayed based on the url)
-            layout/ (contains the header and footer - the only components that are always visible)
-            shared/ (contains interfaces and components that are reused within the application)
-        index.html (the main html file)
-        main.ts (the main typescript file)
-        style.css (the main css file. Contains the css code for the entire application)
+- client/ (the main folder of the angular client)
+    - public/ (contains just the site icon for now)
+    - src/
+        - app/ (contains the main component and all of it's sub-components)
+            - core/ (contains services, guards and interceptors)
+            - features/ (contains all the main components that are displayed based on the url)
+            - layout/ (contains the header and footer - the only components that are always visible)
+            - shared/ (contains interfaces and components that are reused within the application)
+        - index.html (the main html file)
+        - main.ts (the main typescript file)
+        - style.css (the main css file. Contains the css code for the entire application)
 
 
 ## Technologies Used
