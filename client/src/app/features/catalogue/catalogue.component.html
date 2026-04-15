@@ -35,11 +35,17 @@
 
         </div>
 
-        <div class="catalogue-list">
-            @for(anime of currentPageAnimes(); track anime._id) {
-            <app-anime-item [anime]='anime' />
-            }
-        </div>
+        @if (currentPageAnimes().length > 0) {
+            <div class="catalogue-list">
+                @for(anime of currentPageAnimes(); track anime._id) {
+                    <app-anime-item [anime]='anime' />
+                }
+            </div>
+        }
+        @else {
+            <p class="no-animes-message">No animes found!</p>
+        }
+        
 
         @if (sortedAnimes().length > animesPerPage) {
             <app-pagination 
@@ -48,7 +54,6 @@
             [currentPage]="currentPage()"
             [setCurrentPage]="(page) => setCurrentPage(page)" />
         }
-
         
     </div>
 </main>

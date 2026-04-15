@@ -4,6 +4,20 @@
     box-sizing: border-box;
 }
 
+html, body{
+    height: 100%;
+}
+
+main {
+    flex: 1
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f6f7fb;
@@ -12,6 +26,11 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.main-content {
+    flex: 1;
+    display: block;
 }
 
 .ui-header {
@@ -227,16 +246,39 @@ a {
     color: #ffffff;
 }
 
-.page-auth__container {
+.page-login__container {
     width: 90%;
     max-width: 500px;
-    margin: 40px auto;
+    margin: 250px auto;
 }
 
-.page-form__container {
+.page-register__container {
+    width: 90%;
+    max-width: 500px;
+    margin: 60px auto;
+}
+
+.page-change-password__container, .page-edit-profile__container {
+    width: 90%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+.page-edit-profile__container {
+    margin-top: 180px;
+}
+
+.page-add-anime__container, .page-add-review__container {
     width: 90%;
     max-width: 700px;
     margin: 30px auto;
+    margin-bottom: 0px;
+}
+
+.page-add-review__container {
+    margin-top: 230px;
 }
 
 .catalogue-list {
@@ -550,10 +592,20 @@ a {
     margin-bottom: 15px;
 }
 
+.no-animes-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .page-about__container {
     width: 90%;
     max-width: 900px;
-    margin: 30px auto;
+    margin: 150px auto;
 }
 
 .about {
@@ -731,7 +783,7 @@ a {
 .page-list__container {
     width: 90%;
     max-width: 1100px;
-    margin: 30px auto;
+    margin: 100px auto;
 }
 
 .list-section {

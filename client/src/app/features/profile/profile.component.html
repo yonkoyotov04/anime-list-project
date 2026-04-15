@@ -37,7 +37,13 @@
                 }
             }
             @else {
-                <h2 class="no-reviews-message">No reviews have been left for this anime yet.</h2>
+                @if (ownProfile()) {
+                    <h2 class="no-reviews-message">You haven't left any reviews yet!</h2>
+                }
+                @else {
+                    <h2 class="no-reviews-message">This user hasn't left any reviews yet!</h2>
+                }
+                
             }
             
 
