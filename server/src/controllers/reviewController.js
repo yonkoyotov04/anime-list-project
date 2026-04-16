@@ -75,6 +75,7 @@ reviewController.post('/:animeId', isAuth, async (req, res) => {
 
     try {
         let newRating = ((animeRating * reviewCount) + reviewData.rating) / (reviewCount + 1);
+        newRating = newRating.toFixed(2);
 
         if (newRating > 10) {
             newRating = 10;
@@ -104,7 +105,8 @@ reviewController.put('/:reviewId', isAuth, async (req, res) => {
     const reviewCount = await reviewService.getAnimeReviewsCount(animeId);
 
     try {
-        const newRating = (animeRating * reviewCount - currentReview.rating + newReviewData.rating) / reviewCount;
+        let newRating = (animeRating * reviewCount - currentReview.rating + newReviewData.rating) / reviewCount;
+        newRating = newRating.toFixed(2);
 
         if (newRating > 10) {
             newRating = 10;
@@ -137,6 +139,7 @@ reviewController.delete('/:reviewId', isAuth, async (req, res) => {
 
         if (newRatingTotal > 0) {
             newRating = newRatingTotal / (reviewCount - 1)
+            newRating = newRating.toFixed(2);
         }
 
         await reviewService.deleteReview(reviewId);

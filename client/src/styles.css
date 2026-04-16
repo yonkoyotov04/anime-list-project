@@ -507,7 +507,6 @@ a {
 .reviews-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 14px;

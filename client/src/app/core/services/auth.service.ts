@@ -83,7 +83,7 @@ export class Auth {
 
     getAnimeList(userId?: string): Observable<ListItem[]> {
         return this.http.get<ListItem[]>(`${this.apiUrl}/${userId ? userId : this.user()?._id}/list`,
-            { headers: { 'isAuth': 'true' }, withCredentials: true });
+            { headers: { 'isAuth': 'false' }, withCredentials: true });
     }
 
     addAnimeToList(animeId: string): Observable<void> {

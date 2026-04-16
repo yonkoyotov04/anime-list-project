@@ -5,6 +5,7 @@ import { getErrorMessage } from "../utils/errorUtil.js";
 import jwt from 'jsonwebtoken';
 import { generateAuthToken } from "../utils/tokenUtil.js";
 import reviewService from "../services/reviewService.js";
+import animeService from "../services/animeService.js";
 
 const userController = Router();
 
@@ -134,9 +135,27 @@ userController.put('/password/:userId', isAuth, async (req, res) => {
 
 userController.delete('/:userId', isAuth, async (req, res) => {
     const userId = req.params.userId;
+    const reviews = await reviewService.getUserReviews(userId);
+    const animeIds = [...new Set(reviews.map(r => r.anime._id))]
+    console.log(animeIds);
 
     try {
         await reviewService.deleteReviewsForUser(userId);
+
+        for (const animeId of animeIds) {
+            const reviews = await reviewService.getAnimeReviews(animeId);
+
+            let newRating = 0;
+
+            if (reviews.length > 0) {
+                const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+                newRating = total / reviews.length;
+                newRating = newRating.toFixed(2);
+            }
+
+            await animeService.updateRating(animeId, newRating);
+        }
+
         await userService.deleteProfile(userId);
 
         res.status(200).end();
@@ -146,7 +165,7 @@ userController.delete('/:userId', isAuth, async (req, res) => {
     }
 })
 
-userController.get('/:userId/list', isAuth, async (req, res) => {
+userController.get('/:userId/list', async (req, res) => {
     const userId = req.params.userId;
 
     try {
