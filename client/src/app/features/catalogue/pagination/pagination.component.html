@@ -4,18 +4,19 @@
     </button>
 
     <div class="ui-pagination__pages">
-        @for(page of pages; track page) {
-            <button 
-            class="ui-pagination__page" 
-            [class.ui-pagination__page--active]="currentPage === page"
+        @for(page of paginationPages(); track page) {
+        @if (page === '...') {
+        <span class="ui-pagination__dots">...</span>
+        }
+        @else {
+        <button class="ui-pagination__page" [class.ui-pagination__page--active]="currentPage === page"
             (click)="specificPage(page)">{{page}}</button>
         }
-        <!-- 
-        <span class="ui-pagination__dots">...</span>
-         -->
+
+        }
     </div>
 
-    <button class="ui-pagination__btn" (click)="nextPage()" [disabled]="currentPage === pages[pages.length - 1]">
+    <button class="ui-pagination__btn" (click)="nextPage()" [disabled]="currentPage === paginationPages()[paginationPages().length - 1]">
         Next →
     </button>
 </div>

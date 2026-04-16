@@ -597,8 +597,7 @@ a {
     align-items: center;
     font-size: 25px;
     font-weight: bold;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-top: 300px;
 }
 
 .page-about__container {
