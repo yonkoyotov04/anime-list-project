@@ -29,6 +29,7 @@ export class Header {
         this.authService.logout().subscribe({
             next: () => {
                 this.authService.afterLogout();
+                this.notifService.setSuccessMessage('Successfully logged out!')
                 this.router.navigateByUrl('/');
             }
         });
