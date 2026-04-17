@@ -27,8 +27,8 @@ userController.post('/register', isGuest, async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             path: '/',
             maxAge: 14 * 24 * 60 * 60 * 1000
         })
@@ -52,8 +52,8 @@ userController.post('/login', isGuest, async (req, res) => {
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
+            secure: true,
+            sameSite: 'none',
             path: '/',
             maxAge: 14 * 24 * 60 * 60 * 1000
         })

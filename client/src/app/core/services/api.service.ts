@@ -8,7 +8,7 @@ import { Review } from '../../shared/interfaces/review';
     providedIn: 'root',
 })
 export class Api {
-    private apiUrl = 'http://localhost:1298'
+    private apiUrl = (window as any)._env.API_URL;
     private _animes = signal<Anime[]>([]);
 
     animes = this._animes.asReadonly();

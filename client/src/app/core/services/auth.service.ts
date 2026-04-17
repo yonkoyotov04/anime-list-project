@@ -8,7 +8,7 @@ import { ListItem } from '../../shared/interfaces/list-item';
     providedIn: 'root',
 })
 export class Auth {
-    private apiUrl = 'http://localhost:1298/user';
+    private apiUrl = (window as any)._env.API_URL + '/user';
     private _user = signal<any | null>(null);
     isAuthenticated = signal<boolean | null>(null);
     user = this._user.asReadonly();

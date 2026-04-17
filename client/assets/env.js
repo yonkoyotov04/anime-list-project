@@ -1,0 +1,3 @@
+window._env = {
+    API_URL: 'https://anime-list-project.onrender.com'
+}

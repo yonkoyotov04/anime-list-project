@@ -16,7 +16,7 @@ try {
 }
 
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://anime-list-project-ten.vercel.app/',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'X-Authorization', 'isAuth']
@@ -28,4 +28,4 @@ app.use(authMiddleware);
 
 app.use(routes);
 
-app.listen(1298, () => console.log('Server is listening on port http://localhost:1298......'));
+app.listen(process.env.PORT, '0.0.0.0', () => console.log('Server is running'));
