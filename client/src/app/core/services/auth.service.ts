@@ -3,12 +3,13 @@ import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/interfaces/user';
 import { ListItem } from '../../shared/interfaces/list-item';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class Auth {
-    private apiUrl = (window as any)._env.API_URL + '/user';
+    private apiUrl = environment.API_URL + '/user';
     private _user = signal<any | null>(null);
     isAuthenticated = signal<boolean | null>(null);
     user = this._user.asReadonly();

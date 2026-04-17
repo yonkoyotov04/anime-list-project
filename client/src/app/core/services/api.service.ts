@@ -3,12 +3,13 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Anime } from '../../shared/interfaces/anime';
 import { Review } from '../../shared/interfaces/review';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class Api {
-    private apiUrl = (window as any)._env.API_URL;
+    private apiUrl = environment.API_URL;
     private _animes = signal<Anime[]>([]);
 
     animes = this._animes.asReadonly();
