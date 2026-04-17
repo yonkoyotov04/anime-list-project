@@ -17,7 +17,7 @@ try {
 
 app.use(cors({
     origin: [
-        'https://anime-list-project-ten.vercel.app/',
+        'https://anime-list-project-ten.vercel.app',
         'http://localhost:4200'
     ],
     credentials: true,
