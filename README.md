@@ -107,6 +107,16 @@ Reviews:
         - main.ts (the main typescript file)
         - style.css (the main css file. Contains the css code for the entire application)
 
+- server/ (the main folder of the node.js server)
+    - src/
+        - controllers (contains the controllers, in which all endpoints are defined)
+        - middlewares (contains middlewares. Currently only the auth middleware)
+        - models (contains the models for the site's main collections)
+        - services (contains all Mongoose functions used in the controllers)
+        - utils (contains helper functions that are mostly used to prevent repetition)
+        - index.js (the main file of the server)
+        - routes.js (connects all the controllers into one to prevent constant imports)
+
 
 ## Technologies Used
 - Angular
@@ -123,7 +133,7 @@ Reviews:
 
 ## How to run the project
 - By using the link for the deployed version of it
-1. Follow the link
+1. Follow this link https://anime-list-project-ten.vercel.app/
 - By running it in Visual Studio Code
 1. In the terminal run 'cd server
 2. Run 'npm install' to install all dependencies of the server
@@ -131,4 +141,4 @@ Reviews:
 4. In a new terminal run 'cd client'
 5. Run 'npm install' to install all dependencies of the client
 6. Run 'ng serve' to start the client
-7. Follow the link given after starting the client (http://localhost:4200/)
+7. Follow the link given after starting the client
