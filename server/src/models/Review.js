@@ -19,7 +19,7 @@ const reviewSchema = new Schema({
     },
     comment: {
         type: String,
-        minLength: [10, 'Comment is too short!'],
+        minLength: [3, 'Comment is too short!'],
         required: [true, "A comment is required!"]
     }
 })

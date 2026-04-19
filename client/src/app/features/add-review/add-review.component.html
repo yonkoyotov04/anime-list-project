@@ -9,7 +9,7 @@
 
                 <div class="form-group">
                     <label class="form-group__label">Comment</label>
-                    <textarea class="form-group__input" minlength="5" formControlName="comment"></textarea>
+                    <textarea class="form-group__input" minlength="3" formControlName="comment"></textarea>
 
                     @if (commentControl?.invalid && commentControl?.touched) {
                     <div class="input-error">

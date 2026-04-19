@@ -21,7 +21,7 @@ export class AddReviewComponent implements OnInit {
     editMode = signal<boolean>(false);
 
     reviewForm = this.formBuilder.group({
-        comment: ['', [Validators.required, Validators.minLength(5)]],
+        comment: ['', [Validators.required, Validators.minLength(3)]],
         rating: [5, [Validators.required, Validators.min(1), Validators.max(10)]]
     })
 
