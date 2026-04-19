@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit(): void {
         if (this.id) {
             this.userId.set(this.id);
-            if (this.id === this.authService.user()._id) {
+            if (this.id === this.authService.user()?._id) {
                 this.ownProfile.set(true);
             }
         } else {
