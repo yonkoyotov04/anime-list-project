@@ -31,4 +31,6 @@ app.use(authMiddleware);
 
 app.use(routes);
 
-app.listen(process.env.PORT, '0.0.0.0', () => console.log('Server is running'));
+app.listen(1298, '0.0.0.0', () => console.log('Server is running'));
+
+process.env.PORT

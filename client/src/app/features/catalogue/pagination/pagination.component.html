@@ -4,7 +4,7 @@
     </button>
 
     <div class="ui-pagination__pages">
-        @for(page of paginationPages(); track page) {
+        @for(page of paginationPages; track page) {
         @if (page === '...') {
         <span class="ui-pagination__dots">...</span>
         }
@@ -16,7 +16,7 @@
         }
     </div>
 
-    <button class="ui-pagination__btn" (click)="nextPage()" [disabled]="currentPage === paginationPages()[paginationPages().length - 1]">
+    <button class="ui-pagination__btn" (click)="nextPage()" [disabled]="currentPage === paginationPages[paginationPages.length - 1]">
         Next →
     </button>
 </div>

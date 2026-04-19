@@ -1,4 +1,4 @@
-import { Component, computed, Input, OnInit } from '@angular/core';
+import { Component, computed, input, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-pagination',
@@ -12,7 +12,7 @@ export class PaginationComponent {
     @Input({ required: true }) currentPage!: number;
     @Input({ required: true }) setCurrentPage!: (newPage: number) => void;
 
-    paginationPages = computed(() => {
+    get paginationPages(): (number | string)[] {
         const totalPages = Math.ceil(this.animeCount / this.animePerPage);
         const currentPage = this.currentPage;
 
@@ -31,8 +31,8 @@ export class PaginationComponent {
             pages.push('...');
         }
 
-        const middleStart = Math.max(5, currentPage - 1);
-        const middleEnd = Math.max(totalPages - 1, currentPage + 1);
+        const middleStart = Math.max(2, currentPage - 1);
+        const middleEnd = Math.min(totalPages - 1, currentPage + 1);
 
         for (let i = middleStart; i <= middleEnd; i++) {
             pages.push(i);
@@ -45,7 +45,7 @@ export class PaginationComponent {
         pages.push(totalPages);
 
         return pages;
-    })
+    }
 
     previousPage(): void {
         const prevPage = this.currentPage - 1;
