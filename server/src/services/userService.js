@@ -85,7 +85,9 @@ export default {
 
     async editPassword(userId, currentPassword, newPassword, repeatNewPassword) {
         const user = await User.findById(userId);
-        const validPassword = bcrypt.compare(currentPassword, user.password);
+        const validPassword = await bcrypt.compare(currentPassword, user.password);
+
+        console.log(validPassword);
 
         if (!validPassword) {
             throw new Error('Invalid password!');

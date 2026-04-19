@@ -111,7 +111,7 @@ userController.put('/:userId', isAuth, async (req, res) => {
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         res.statusMessage = errorMessage;
-        res.status(401).json({ message: errorMessage });
+        res.status(400).json({ message: errorMessage });
     }
 })
 
@@ -129,7 +129,7 @@ userController.put('/password/:userId', isAuth, async (req, res) => {
     } catch (error) {
         const errorMessage = getErrorMessage(error);
         res.statusMessage = errorMessage;
-        res.status(401).json({ message: errorMessage });
+        res.status(400).json({ message: errorMessage });
     }
 })
 
